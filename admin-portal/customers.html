@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Customers | AutoGas Solutions Admin</title>
+    
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+</head>
+<body class="admin-layout">
+
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <h2>AutoGas Admin</h2>
+            <p>Visnagar Branch</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="customers.html" class="active">👥 Customers & Vehicles</a>
+            <a href="billing.html">📄 Invoicing & Billing</a>
+            <a href="inventory.html">📦 Kit Inventory</a>
+            <a href="settings.html">⚙️ Automation Settings</a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="login.html" class="logout-btn">🚪 Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+        
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <h1>Customers & Vehicles Repository</h1>
+            </div>
+            <div class="topbar-right">
+                <button class="btn btn-primary" onclick="openAddCustomerModal()">+ Add New Installation</button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            
+            <!-- Filters and Search -->
+            <div class="table-controls flex-between">
+                <div class="search-box">
+                    <input type="text" placeholder="Search by name, phone, or RC number..." id="customerSearch">
+                    <button class="btn btn-secondary btn-small">Search</button>
+                </div>
+                <div class="filter-box">
+                    <select id="statusFilter">
+                        <option value="all">All Vehicles</option>
+                        <option value="active">Active Compliance</option>
+                        <option value="expiring">Expiring Soon (30 Days)</option>
+                        <option value="expired">Expired Hydro-Test</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Customer Data Table -->
+            <div class="table-responsive bg-white card-shadow">
+                <table class="admin-table full-width">
+                    <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Phone (WhatsApp)</th>
+                            <th>Vehicle & RTO</th>
+                            <th>Kit Installed</th>
+                            <th>Installation Date</th>
+                            <th>3-Year Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1: Healthy Status -->
+                        <tr>
+                            <td><strong>Sajid Mansuri</strong></td>
+                            <td>+91 9876543211</td>
+                            <td>Hyundai i20 <br><small>GJ-02-XY-9988</small></td>
+                            <td>Lovato Sequential</td>
+                            <td>12 Mar 2025</td>
+                            <td><span class="status-badge success">12 Mar 2028</span></td>
+                            <td>
+                                <button class="action-btn edit-btn">Edit</button>
+                                <button class="action-btn bill-btn" onclick="window.location.href='billing.html'">Bill</button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2: Expiring Soon -->
+                        <tr>
+                            <td><strong>Mustakim Pathan</strong></td>
+                            <td>+91 9876543212</td>
+                            <td>Maruti Ertiga <br><small>GJ-02-AB-5544</small></td>
+                            <td>Motozen Sequential</td>
+                            <td>20 Aug 2023</td>
+                            <td><span class="status-badge warning">20 Aug 2026</span></td>
+                            <td>
+                                <button class="action-btn edit-btn">Edit</button>
+                                <button class="action-btn alert-btn" onclick="alert('WhatsApp Alert Sent!')">Remind</button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3: Expired -->
+                        <tr>
+                            <td><strong>Khalil Sheikh</strong></td>
+                            <td>+91 9876543213</td>
+                            <td>Honda City <br><small>GJ-02-MN-1122</small></td>
+                            <td>BRC Conventional</td>
+                            <td>10 Jan 2023</td>
+                            <td><span class="status-badge danger">10 Jan 2026</span></td>
+                            <td>
+                                <button class="action-btn edit-btn">Edit</button>
+                                <button class="action-btn alert-btn">Remind</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination (Placeholder) -->
+            <div class="pagination flex-between">
+                <span>Showing 1 to 15 of 342 entries</span>
+                <div class="page-controls">
+                    <button class="btn btn-outline btn-small" disabled>Previous</button>
+                    <button class="btn btn-primary btn-small">1</button>
+                    <button class="btn btn-outline btn-small">2</button>
+                    <button class="btn btn-outline btn-small">Next</button>
+                </div>
+            </div>
+
+        </div> <!-- End Content -->
+
+        <!-- MODAL: Add New Customer / Installation -->
+        <div id="addCustomerModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header flex-between">
+                    <h2>Register New Installation</h2>
+                    <span class="close-btn" onclick="closeAddCustomerModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="newInstallationForm">
+                        
+                        <h4 class="form-section-title">Customer Details</h4>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Full Name</label>
+                                <input type="text" required placeholder="e.g. Nasir">
+                            </div>
+                            <div class="input-group">
+                                <label>WhatsApp Number</label>
+                                <input type="tel" required placeholder="+91">
+                            </div>
+                        </div>
+
+                        <h4 class="form-section-title">Vehicle & Kit Details</h4>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Car Make & Model</label>
+                                <input type="text" required placeholder="e.g. Tata Tiago">
+                            </div>
+                            <div class="input-group">
+                                <label>RTO Registration (RC)</label>
+                                <input type="text" required placeholder="GJ-02-...">
+                            </div>
+                            <div class="input-group">
+                                <label>Kit Brand Installed</label>
+                                <select required>
+                                    <option value="">Select Kit...</option>
+                                    <option value="lovato">Lovato Sequential</option>
+                                    <option value="motozen">Motozen Sequential</option>
+                                    <option value="brc">BRC Conventional</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Installation Date</label>
+                                <input type="date" id="installDateInput" required onchange="calculateExpiry()">
+                            </div>
+                        </div>
+
+                        <div class="calculated-expiry-box">
+                            <p>Calculated Hydro-Test Expiry Date (3 Years):</p>
+                            <h3 id="displayExpiryDate">--/--/----</h3>
+                            <!-- This hidden input is what would actually get sent to your Node.js backend -->
+                            <input type="hidden" id="hiddenExpiryDate">
+                        </div>
+
+                        <button type="button" class="btn btn-primary full-width" style="margin-top: 15px;" onclick="submitNewCustomer()">
+                            Save Customer & Start Timer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Overlay for Modal -->
+        <div id="modalOverlay" class="overlay hidden"></div>
+
+    </main>
+
+    <script>
+        // Modal Control Functions
+        function openAddCustomerModal() {
+            document.getElementById('addCustomerModal').classList.remove('hidden');
+            document.getElementById('modalOverlay').classList.remove('hidden');
+        }
+
+        function closeAddCustomerModal() {
+            document.getElementById('addCustomerModal').classList.add('hidden');
+            document.getElementById('modalOverlay').classList.add('hidden');
+        }
+
+        // Automatic 3-Year Expiry Calculation
+        function calculateExpiry() {
+            const installInput = document.getElementById('installDateInput').value;
+            if(!installInput) return;
+
+            const installDate = new Date(installInput);
+            
+            // Add exactly 3 years
+            const expiryDate = new Date(installDate);
+            expiryDate.setFullYear(expiryDate.getFullYear() + 3);
+
+            // Format for display (DD/MM/YYYY)
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            document.getElementById('displayExpiryDate').innerText = expiryDate.toLocaleDateString('en-IN', options);
+            
+            // Save the raw ISO string for the backend database
+            document.getElementById('hiddenExpiryDate').value = expiryDate.toISOString();
+        }
+
+        function submitNewCustomer() {
+            alert("Customer data and 3-year timer successfully saved to database!");
+            closeAddCustomerModal();
+        }
+    </script>
+
+</body>
+</html>

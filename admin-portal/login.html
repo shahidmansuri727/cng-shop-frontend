@@ -1,1 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin System Login | AutoGas Solutions</title>
+    
+    <!-- Link to global styles and specific admin dashboard stylesheet -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+</head>
+<body class="admin-login-body">
 
+    <div class="admin-login-wrapper">
+        <!-- Left Side: Branding / Info -->
+        <div class="admin-login-brand">
+            <div class="brand-content">
+                <h1>AutoGas Solutions</h1>
+                <h3>Visnagar Workshop Control Panel</h3>
+                <p>Secure backend system for managing CNG installations, generating digital bills, and tracking 3-year hydro-test compliances.</p>
+                
+                <div class="security-badge">
+                    <span>🔒 Restricted Access. Authorized Staff Only.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Login Form -->
+        <div class="admin-login-form-container">
+            <div class="admin-form-box">
+                <h2>Admin Login</h2>
+                <p>Enter your credentials to access the dashboard.</p>
+
+                <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                    
+                    <div class="input-group">
+                        <label for="adminEmail">Admin Email</label>
+                        <input 
+                            type="email" 
+                            id="adminEmail" 
+                            placeholder="admin@autogasvisnagar.com" 
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label for="adminPassword">Password</label>
+                        <input 
+                            type="password" 
+                            id="adminPassword" 
+                            placeholder="Enter your secure password" 
+                            required
+                        >
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe"> Remember me on this device
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary full-width admin-btn">
+                        Login to Dashboard
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick JavaScript for simulated login -->
+    <script>
+        function handleAdminLogin(event) {
+            event.preventDefault(); // Prevent page reload
+            
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            // Basic validation check before sending to Node.js backend
+            if(email && password.length >= 6) {
+                // In your final Node.js build, this will send a secure POST request to verify credentials
+                
+                // For now, simulate a successful login and redirect to the dashboard
+                console.log("Authenticating admin...");
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Please enter a valid email and a password of at least 6 characters.");
+            }
+        }
+    </script>
+
+</body>
+</html>

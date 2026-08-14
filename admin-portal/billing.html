@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoicing & Billing | AutoGas Solutions Admin</title>
+    
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+</head>
+<body class="admin-layout">
+
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <h2>AutoGas Admin</h2>
+            <p>Visnagar Branch</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="customers.html">👥 Customers & Vehicles</a>
+            <a href="billing.html" class="active">📄 Invoicing & Billing</a>
+            <a href="inventory.html">📦 Kit Inventory</a>
+            <a href="settings.html">⚙️ Automation Settings</a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="login.html" class="logout-btn">🚪 Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+        
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <h1>Billing & Invoicing</h1>
+            </div>
+            <div class="topbar-right">
+                <button class="btn btn-primary" onclick="openInvoiceModal()">+ Create New Bill</button>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            
+            <!-- Billing Overview -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <h3>Total Collected (August)</h3>
+                    <div class="kpi-value text-success">₹ 1,45,000</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>Pending Payments</h3>
+                    <div class="kpi-value warning-text">₹ 38,000</div>
+                </div>
+            </div>
+
+            <!-- Invoices Table -->
+            <div class="table-responsive bg-white card-shadow" style="margin-top: 20px;">
+                <div class="section-header" style="padding: 15px; border-bottom: 1px solid #eee;">
+                    <h2>Recent Invoices</h2>
+                </div>
+                <table class="admin-table full-width">
+                    <thead>
+                        <tr>
+                            <th>Invoice #</th>
+                            <th>Date</th>
+                            <th>Customer Name</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>INV-2026-1043</strong></td>
+                            <td>14 Aug 2026</td>
+                            <td>Nasir</td>
+                            <td>₹ 45,500</td>
+                            <td><span class="status-badge paid">Paid</span></td>
+                            <td>
+                                <button class="action-btn pdf-btn">View PDF</button>
+                                <button class="action-btn alert-btn" onclick="sendWhatsAppBill('Nasir', 'INV-2026-1043')">Resend WA</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>INV-2026-1042</strong></td>
+                            <td>12 Aug 2026</td>
+                            <td>Sanjay Desai</td>
+                            <td>₹ 850</td>
+                            <td><span class="status-badge paid">Paid</span></td>
+                            <td>
+                                <button class="action-btn pdf-btn">View PDF</button>
+                                <button class="action-btn alert-btn">Resend WA</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>INV-2026-1041</strong></td>
+                            <td>10 Aug 2026</td>
+                            <td>Neha Gupta</td>
+                            <td>₹ 38,000</td>
+                            <td><span class="status-badge warning">Partial (₹10k Due)</span></td>
+                            <td>
+                                <button class="action-btn pdf-btn">View PDF</button>
+                                <button class="action-btn alert-btn" style="background: #e67e22;">Send Reminder</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> <!-- End Content -->
+
+        <!-- MODAL: Create New Invoice -->
+        <div id="invoiceModal" class="modal hidden">
+            <div class="modal-content invoice-modal">
+                <div class="modal-header flex-between">
+                    <h2>Generate New Digital Bill</h2>
+                    <span class="close-btn" onclick="closeInvoiceModal()">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <form id="newInvoiceForm">
+                        
+                        <!-- Customer Selection -->
+                        <div class="form-grid" style="margin-bottom: 20px;">
+                            <div class="input-group">
+                                <label>Select Customer</label>
+                                <select required>
+                                    <option value="">Search customer...</option>
+                                    <option value="1">Nasir (GJ-02-XY-1234)</option>
+                                    <option value="2">Mustakim Pathan (GJ-02-AB-5544)</option>
+                                    <option value="3">New Customer (Walk-in)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Invoice Date</label>
+                                <input type="date" value="2026-08-14" required>
+                            </div>
+                        </div>
+
+                        <!-- Itemized Billing Area -->
+                        <h4 class="form-section-title">Itemized Charges</h4>
+                        <table class="invoice-items-table full-width">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">Description / Service</th>
+                                    <th style="width: 15%;">Qty</th>
+                                    <th style="width: 20%;">Rate (₹)</th>
+                                    <th style="width: 15%;">Total (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoiceItemsBody">
+                                <!-- Row 1 -->
+                                <tr>
+                                    <td>
+                                        <input type="text" class="item-desc" value="Lovato OBD-II Sequential Kit" required>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="item-qty" value="1" min="1" onchange="calculateTotals()">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="item-rate" value="40000" min="0" onchange="calculateTotals()">
+                                    </td>
+                                    <td class="item-row-total">40000</td>
+                                </tr>
+                                <!-- Row 2 -->
+                                <tr>
+                                    <td>
+                                        <input type="text" class="item-desc" value="Installation Labour & Tuning" required>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="item-qty" value="1" min="1" onchange="calculateTotals()">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="item-rate" value="3500" min="0" onchange="calculateTotals()">
+                                    </td>
+                                    <td class="item-row-total">3500</td>
+                                </tr>
+                                <!-- Row 3 -->
+                                <tr>
+                                    <td>
+                                        <input type="text" class="item-desc" value="RTO Endorsement Fees" required>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="item-qty" value="1" min="1" onchange="calculateTotals()">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="item-rate" value="2000" min="0" onchange="calculateTotals()">
+                                    </td>
+                                    <td class="item-row-total">2000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 10px;">
+                            <button type="button" class="btn btn-secondary btn-small" onclick="addRow()">+ Add Another Item</button>
+                        </div>
+
+                        <!-- Totals Calculation -->
+                        <div class="invoice-totals-box">
+                            <div class="flex-between">
+                                <span>Subtotal:</span>
+                                <span id="subtotalAmount">₹ 45,500</span>
+                            </div>
+                            <div class="flex-between">
+                                <span>GST (Optional / Inclusive):</span>
+                                <span>--</span>
+                            </div>
+                            <div class="flex-between grand-total">
+                                <strong>Grand Total:</strong>
+                                <strong id="grandTotalAmount">₹ 45,500</strong>
+                            </div>
+                        </div>
+
+                        <!-- Submission Actions -->
+                        <div class="form-actions flex-between" style="margin-top: 20px;">
+                            <button type="button" class="btn btn-outline" onclick="closeInvoiceModal()">Cancel</button>
+                            
+                            <div>
+                                <button type="button" class="btn btn-secondary" onclick="generatePDF()">Save as Draft PDF</button>
+                                <button type="button" class="btn btn-primary" style="background: #25D366; border-color: #25D366;" onclick="generateAndSend()">
+                                    📱 Generate & Send via WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Overlay for Modal -->
+        <div id="modalOverlay" class="overlay hidden"></div>
+
+    </main>
+
+    <script>
+        // Modal Control Functions
+        function openInvoiceModal() {
+            document.getElementById('invoiceModal').classList.remove('hidden');
+            document.getElementById('modalOverlay').classList.remove('hidden');
+        }
+
+        function closeInvoiceModal() {
+            document.getElementById('invoiceModal').classList.add('hidden');
+            document.getElementById('modalOverlay').classList.add('hidden');
+        }
+
+        // Add empty row to itemized bill
+        function addRow() {
+            const tbody = document.getElementById('invoiceItemsBody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><input type="text" class="item-desc" placeholder="Item description" required></td>
+                <td><input type="number" class="item-qty" value="1" min="1" onchange="calculateTotals()"></td>
+                <td><input type="number" class="item-rate" value="0" min="0" onchange="calculateTotals()"></td>
+                <td class="item-row-total">0</td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        // Dynamically calculate the totals as the admin types
+        function calculateTotals() {
+            let subtotal = 0;
+            const rows = document.querySelectorAll('#invoiceItemsBody tr');
+            
+            rows.forEach(row => {
+                const qty = row.querySelector('.item-qty').value;
+                const rate = row.querySelector('.item-rate').value;
+                const rowTotal = qty * rate;
+                
+                row.querySelector('.item-row-total').innerText = rowTotal;
+                subtotal += rowTotal;
+            });
+
+            document.getElementById('subtotalAmount').innerText = "₹ " + subtotal;
+            document.getElementById('grandTotalAmount').innerText = "₹ " + subtotal;
+        }
+
+        // Mock WhatsApp integration
+        function generateAndSend() {
+            // In Node.js, this will:
+            // 1. Save data to MySQL.
+            // 2. Generate PDF via a library like Puppeteer.
+            // 3. Trigger WhatsApp API to send the PDF link.
+            alert("Success! Invoice PDF generated and sent to the customer's WhatsApp with a payment link.");
+            closeInvoiceModal();
+        }
+
+        function sendWhatsAppBill(name, invNumber) {
+            alert(`Sending invoice ${invNumber} to ${name} via WhatsApp API...`);
+        }
+    </script>
+
+</body>
+</html>
