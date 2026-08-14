@@ -1,0 +1,331 @@
+/* ==========================================================================
+   1. ADMIN LOGIN PAGE (Split-Screen Layout)
+   ========================================================================== */
+.admin-login-body {
+    background-color: var(--bg-light);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.admin-login-wrapper {
+    display: flex;
+    height: 100vh;
+}
+
+.admin-login-brand {
+    flex: 1;
+    background: linear-gradient(135deg, var(--primary-blue), #092a4a);
+    color: var(--bg-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.brand-content {
+    max-width: 400px;
+}
+
+.brand-content h1 {
+    color: var(--bg-white);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.brand-content p {
+    margin-top: 20px;
+    opacity: 0.8;
+}
+
+.security-badge {
+    margin-top: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    display: inline-block;
+    border-left: 4px solid var(--eco-green);
+}
+
+.admin-login-form-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-white);
+}
+
+.admin-form-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+/* ==========================================================================
+   2. MAIN ADMIN LAYOUT (Sidebar + Main Content)
+   ========================================================================== */
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* Prevent body scroll, scroll inner content instead */
+}
+
+/* SIDEBAR */
+.admin-sidebar {
+    width: 260px;
+    background-color: var(--primary-blue);
+    color: var(--bg-white);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-header h2 {
+    color: var(--bg-white);
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.sidebar-header p {
+    font-size: 0.85rem;
+    color: var(--eco-green);
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+    padding: 20px 0;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.7);
+    border-left: 4px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav a:hover, .sidebar-nav a.active {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--bg-white);
+    border-left-color: var(--eco-green);
+}
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logout-btn {
+    color: #e74c3c !important;
+}
+
+/* MAIN CONTENT AREA */
+.admin-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-light);
+    overflow-y: auto;
+}
+
+.admin-topbar {
+    background-color: var(--bg-white);
+    height: 70px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.admin-topbar h1 {
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.current-date {
+    margin-right: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.dashboard-content {
+    padding: 30px;
+}
+
+/* ==========================================================================
+   3. KPI CARDS & DASHBOARD WIDGETS
+   ========================================================================== */
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.kpi-card {
+    background-color: var(--bg-white);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--primary-blue);
+}
+
+.kpi-card h3 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.kpi-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    margin: 10px 0;
+}
+
+.kpi-trend { font-size: 0.85rem; color: var(--text-muted); }
+.kpi-trend.positive { color: var(--success); }
+
+/* ==========================================================================
+   4. ALERTS & SPLIT SECTIONS (3-Year Tracker)
+   ========================================================================== */
+.dashboard-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-header h2 { font-size: 1.1rem; margin: 0; }
+.view-all { font-size: 0.9rem; font-weight: 600; }
+
+.alert-item {
+    background-color: var(--bg-white);
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    border-left: 4px solid transparent;
+}
+
+.alert-item.critical { border-left-color: var(--danger); background-color: #fdf2f1; }
+.alert-item.warning { border-left-color: var(--warning); }
+
+.alert-info strong { display: inline-block; margin-bottom: 5px; color: var(--text-dark); }
+.alert-info span { display: block; font-size: 0.85rem; color: var(--text-muted); }
+.alert-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+
+/* ==========================================================================
+   5. DATA TABLES (CRM & Invoicing)
+   ========================================================================== */
+.table-controls {
+    margin-bottom: 20px;
+    background-color: var(--bg-white);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.search-box { display: flex; gap: 10px; width: 400px; }
+.search-box input { margin-bottom: 0; }
+
+.admin-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.admin-table th, .admin-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-table th {
+    background-color: #f8f9fa;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-table tbody tr:hover { background-color: #f8f9fa; }
+
+/* Action Buttons inside tables */
+.action-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.edit-btn { color: var(--info); }
+.bill-btn { color: var(--eco-green); }
+.pdf-btn { color: var(--primary-blue); }
+.alert-btn { color: var(--danger); }
+
+/* ==========================================================================
+   6. BILLING MODAL SPECIFICS
+   ========================================================================== */
+.invoice-modal { max-width: 800px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-section-title { margin: 25px 0 15px; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
+
+.invoice-items-table input {
+    border: 1px solid transparent; /* Looks clean until hovered */
+    background-color: transparent;
+    padding: 5px;
+}
+.invoice-items-table input:hover, .invoice-items-table input:focus {
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-white);
+}
+.item-row-total { font-weight: bold; text-align: right; padding-right: 15px !important; }
+
+.invoice-totals-box {
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    text-align: right;
+    width: 300px;
+    float: right;
+}
+.invoice-totals-box .flex-between { margin-bottom: 10px; }
+.grand-total { border-top: 2px solid var(--border-color); padding-top: 10px; font-size: 1.2rem; color: var(--primary-blue); }
+
+.calculated-expiry-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(46, 204, 113, 0.1);
+    border: 1px dashed var(--eco-green);
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+.calculated-expiry-box h3 { color: var(--eco-green); margin-top: 5px; font-size: 1.5rem; }
