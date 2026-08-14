@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNG Kits & Prices | AutoGas Solutions</title>
+    
+    <!-- Link to your CSS files -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/storefront.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">
+            <!-- Replace with your exported Canva logo -->
+            <h2>AutoGas Solutions</h2>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="kits.html" class="active">CNG Kits</a>
+            <a href="services.html">Services</a>
+            <a href="customer-portal/login.html" class="login-btn">Customer Login</a>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our CNG Kits</h1>
+            <p>100% Genuine, RTO-Approved Kits for Maximum Mileage and Safety.</p>
+        </div>
+    </section>
+
+    <!-- Catalog Layout (Sidebar + Product Grid) -->
+    <section class="catalog-section">
+        <div class="container catalog-layout">
+            
+            <!-- Sidebar Filters -->
+            <aside class="sidebar-filters">
+                <h3>Filter By</h3>
+                
+                <div class="filter-group">
+                    <h4>Kit Type</h4>
+                    <label><input type="checkbox" name="type" value="sequential"> Sequential Kits</label>
+                    <label><input type="checkbox" name="type" value="conventional"> Conventional/Venturi Kits</label>
+                </div>
+
+                <div class="filter-group">
+                    <h4>Brand</h4>
+                    <label><input type="checkbox" name="brand" value="lovato"> Lovato</label>
+                    <label><input type="checkbox" name="brand" value="motozen"> Motozen</label>
+                    <label><input type="checkbox" name="brand" value="brc"> BRC</label>
+                    <label><input type="checkbox" name="brand" value="tomasetto"> Tomasetto</label>
+                </div>
+            </aside>
+
+            <!-- Product Grid -->
+            <div class="products-grid">
+                
+                <!-- Product Card 1 -->
+                <div class="kit-card">
+                    <div class="kit-image-placeholder">
+                        <!-- Add img tag here once you have assets from Canva -->
+                        <span>Lovato Image</span>
+                    </div>
+                    <div class="kit-info">
+                        <span class="badge">RTO Approved</span>
+                        <h3>Lovato OBD-II Sequential Kit</h3>
+                        <p>Italian technology. Best for modern 3 and 4-cylinder hatchbacks and sedans.</p>
+                        <ul class="features">
+                            <li>✔ 1-Year Manufacturer Warranty</li>
+                            <li>✔ Premium Injectors</li>
+                            <li>✔ Zero power loss</li>
+                        </ul>
+                        <p class="price-estimate">Est. ₹45,000 - ₹48,000</p>
+                        <button class="btn btn-primary quote-btn" onclick="openQuoteModal('Lovato OBD-II')">Get Final Quote</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="kit-card">
+                    <div class="kit-image-placeholder">
+                        <span>Motozen Image</span>
+                    </div>
+                    <div class="kit-info">
+                        <span class="badge">RTO Approved</span>
+                        <h3>Motozen Sequential Kit</h3>
+                        <p>Highly reliable and budget-friendly. Great for daily city driving.</p>
+                        <ul class="features">
+                            <li>✔ 1-Year Warranty</li>
+                            <li>✔ Advanced ECU Tuning</li>
+                            <li>✔ High mileage efficiency</li>
+                        </ul>
+                        <p class="price-estimate">Est. ₹38,000 - ₹42,000</p>
+                        <button class="btn btn-primary quote-btn" onclick="openQuoteModal('Motozen Sequential')">Get Final Quote</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="kit-card">
+                    <div class="kit-image-placeholder">
+                        <span>BRC Image</span>
+                    </div>
+                    <div class="kit-info">
+                        <span class="badge">Classic</span>
+                        <h3>BRC Conventional Kit</h3>
+                        <p>Traditional venturi system best suited for older, non-injected engine models.</p>
+                        <ul class="features">
+                            <li>✔ 6-Month Warranty</li>
+                            <li>✔ Low Maintenance Cost</li>
+                            <li>✔ Heavy-duty reducer</li>
+                        </ul>
+                        <p class="price-estimate">Est. ₹25,000 - ₹28,000</p>
+                        <button class="btn btn-primary quote-btn" onclick="openQuoteModal('BRC Conventional')">Get Final Quote</button>
+                    </div>
+                </div>
+
+            </div> <!-- End Products Grid -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 AutoGas Solutions. All rights reserved.</p>
+            <p>Serving Visnagar | Emergency Breakdown: +91 98765 43210</p>
+        </div>
+    </footer>
+
+    <!-- Load JavaScript -->
+    <script src="js/storefront/main.js"></script>
+
+</body>
+</html>

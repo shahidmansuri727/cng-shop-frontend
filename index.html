@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium CNG Installations | Cut Your Fuel Costs</title>
+    
+    <!-- Link to your CSS files -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/storefront.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header class="navbar">
+        <div class="logo">
+            <!-- Replace with your exported Canva logo -->
+            <h2>NS MOTORS</h2>
+        </div>
+        <nav class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="kits.html">CNG Kits</a>
+            <a href="services.html">Services</a>
+            <a href="customer-portal/login.html" class="login-btn">Customer Login</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Cut Your Fuel Costs in Half.</h1>
+            <p>Premium RTO-Approved CNG Installations & Expert Servicing for Visnagar and surrounding Gujarat.</p>
+            <div class="hero-buttons">
+                <a href="kits.html" class="btn btn-primary">Browse CNG Kits</a>
+                <a href="services.html" class="btn btn-secondary">Book a Service</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Savings Calculator -->
+    <section class="calculator-section">
+        <div class="container">
+            <h2>Calculate Your CNG Savings</h2>
+            <p>See exactly how much you can save every month by switching to CNG.</p>
+            
+            <div class="calculator-box">
+                <div class="input-group">
+                    <label for="dailyKm">Daily Driving Distance (KM):</label>
+                    <input type="number" id="dailyKm" value="50" min="1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="petrolPrice">Current Petrol Price (₹/Litre):</label>
+                    <input type="number" id="petrolPrice" value="95" min="1">
+                </div>
+
+                <div class="input-group">
+                    <label for="cngPrice">Current CNG Price (₹/Kg):</label>
+                    <input type="number" id="cngPrice" value="75" min="1">
+                </div>
+
+                <button class="btn btn-primary" onclick="calculateSavings()">Calculate Savings</button>
+                
+                <!-- The JavaScript will inject the final amount into this h3 -->
+                <div class="result-display">
+                    <h3 id="savings-result">Your monthly savings will appear here.</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Overview -->
+    <section class="services-overview">
+        <div class="container">
+            <h2>Our Expertise</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>New Kit Installation</h3>
+                    <p>Sequential and Conventional kits from top brands like Lovato and Motozen.</p>
+                </div>
+                <div class="service-card">
+                    <h3>3-Year Hydro-Testing</h3>
+                    <p>Mandatory cylinder testing with automated reminders so you never miss a renewal date.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Computerized Tuning</h3>
+                    <p>Advanced ECU calibration for smooth shifting and maximum engine life.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 AutoGas Solutions. All rights reserved.</p>
+            <p>Serving Visnagar | Emergency Breakdown: +91 98765 43210</p>
+        </div>
+    </footer>
+
+    <!-- Load the JavaScript files at the bottom for faster page load -->
+    <script src="js/storefront/main.js"></script>
+    <script src="js/storefront/calculator.js"></script>
+
+</body>
+</html>
