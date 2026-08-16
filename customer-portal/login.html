@@ -1,1 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Login | AutoGas Solutions</title>
+    
+    <!-- Link to global styling -->
+    <link rel="stylesheet" href="../css/global.css">
+    
+    <style>
+        /* UMS / ERP Portal Specific Styling */
+        body.ums-login-body {
+            background: linear-gradient(135deg, #0d3b66 0%, #1d6fa5 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 20px;
+        }
 
+        /* Top Company Name Link */
+        .top-company-link {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .top-company-link a {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .top-company-link a:hover {
+            color: var(--eco-green);
+        }
+
+        .ums-wrapper {
+            width: 100%;
+            max-width: 900px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* Left Side: Brand Panel (Now an Image) */
+        .ums-brand-panel {
+            padding: 0; 
+            background-color: #f8f9fa;
+            display: flex;
+        }
+
+        .ums-brand-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Right Side: UMS Card Form Panel */
+        .ums-form-panel {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Role Switcher Tabs (Customer vs Admin) */
+        .role-tabs {
+            display: flex;
+            background: #f1f3f5;
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 25px;
+        }
+
+        .role-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            color: var(--text-muted);
+            border: none;
+            background: transparent;
+        }
+
+        .role-tab.active {
+            background: #ffffff;
+            color: var(--primary-blue);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .form-header h3 {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .form-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+        }
+
+        .input-group input:focus {
+            border-color: var(--eco-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
+        }
+
+        /* Fixed OTP Input Flexbox */
+        .phone-otp-row {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .phone-otp-row input {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .phone-otp-row .ums-btn {
+            width: auto;
+            margin-top: 0;
+            padding: 0 20px;
+            white-space: nowrap;
+        }
+
+        .ums-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--eco-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .ums-btn:hover {
+            background-color: var(--eco-green-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-home a {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .back-home a:hover {
+            color: var(--primary-blue);
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 768px) {
+            .ums-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .ums-brand-panel {
+                height: 200px; /* Keeps the image visible but shorter on phones */
+            }
+        }
+    </style>
+</head>
+<body class="ums-login-body">
+
+    <!-- Top Company Name Link -->
+    <div class="top-company-link">
+        <a href="../index.html">AutoGas Solutions</a>
+    </div>
+
+    <div class="ums-wrapper">
+        
+        <!-- Left Brand Panel (Now an Image) -->
+        <div class="ums-brand-panel">
+            <!-- Ensure you have a picture named login-banner.jpg in your assets folder! -->
+            <img src="D:\NS\cng-shop-frontend\assets\img\login-banner.png" alt="AutoGas Visnagar Workshop">
+        </div>
+
+        <!-- Right Form Panel -->
+        <div class="ums-form-panel">
+            
+            <!-- Role Selector Tabs -->
+            <div class="role-tabs">
+                <button type="button" class="role-tab active" id="customerTab" onclick="switchRole('customer')">Customer Portal</button>
+                <button type="button" class="role-tab" id="adminTab" onclick="switchRole('admin')">Staff / Admin</button>
+            </div>
+
+            <!-- CUSTOMER LOGIN FORM -->
+            <div id="customerSection">
+                <div class="form-header">
+                    <h3>Customer Verification</h3>
+                    <p>Enter your mobile number and OTP to access your garage.</p>
+                </div>
+
+                <form onsubmit="handleCustomerLogin(event)">
+                    
+                    <div class="input-group">
+                        <label>Registered Mobile Number</label>
+                        <div class="phone-otp-row">
+                            <input type="tel" id="customerPhone" placeholder="Enter 10-digit number" pattern="[0-9]{10}" required>
+                            <button type="button" class="ums-btn btn-outline" onclick="sendOTP()">Send OTP</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Enter 4-Digit OTP</label>
+                        <input type="text" id="otpCode" placeholder="1234" maxlength="4" required>
+                    </div>
+
+                    <!-- Bottom Login Button -->
+                    <button type="submit" class="ums-btn">Login</button>
+                </form>
+            </div>
+
+            <!-- ADMIN LOGIN FORM -->
+            <div id="adminSection" class="hidden">
+                <div class="form-header">
+                    <h3>Admin Control Panel</h3>
+                    <p>Enter your administrative credentials to manage operations.</p>
+                </div>
+
+                <form onsubmit="handleAdminLogin(event)">
+                    <div class="input-group">
+                        <label>Admin Username / Email</label>
+                        <input type="email" id="adminEmail" placeholder="admin@autogas.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="adminPassword" placeholder="Enter password" required>
+                    </div>
+
+                    <!-- Bottom Login Button -->
+                    <button type="submit" class="ums-btn" style="background-color: var(--primary-blue);">Login</button>
+                </form>
+            </div>
+
+            <div class="back-home">
+                <a href="../index.html">← Return to Public Website</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Script Handling Authentication Logic -->
+    <script>
+        const ADMIN_EMAIL = "admin@autogas.com";
+        const ADMIN_PASSWORD = "visnagaradmin123";
+
+        // Tab Switcher
+        function switchRole(role) {
+            const customerTab = document.getElementById('customerTab');
+            const adminTab = document.getElementById('adminTab');
+            const customerSection = document.getElementById('customerSection');
+            const adminSection = document.getElementById('adminSection');
+
+            if (role === 'customer') {
+                customerTab.classList.add('active');
+                adminTab.classList.remove('active');
+                customerSection.classList.remove('hidden');
+                adminSection.classList.add('hidden');
+            } else {
+                adminTab.classList.add('active');
+                customerTab.classList.remove('active');
+                adminSection.classList.remove('hidden');
+                customerSection.classList.add('hidden');
+            }
+        }
+
+        // Send OTP Action
+        function sendOTP() {
+            const phoneInput = document.getElementById('customerPhone').value;
+            if (phoneInput.length === 10) {
+                alert("OTP sent successfully to +91 " + phoneInput + " (Demo OTP: 1234)");
+            } else {
+                alert("Please enter a valid 10-digit mobile number first.");
+            }
+        }
+
+        // Customer Login Action
+        function handleCustomerLogin(event) {
+            event.preventDefault();
+            const phoneVal = document.getElementById('customerPhone').value;
+            const otpVal = document.getElementById('otpCode').value;
+
+            if (phoneVal.length !== 10) {
+                alert("Please enter a valid 10-digit mobile number.");
+                return;
+            }
+
+            if (otpVal === "1234") {
+                alert("Verification successful! Redirecting to your garage.");
+                // Redirects to the customer garage
+                window.location.href = "my-garage.html";
+            } else {
+                alert("Invalid OTP. Please enter 1234.");
+            }
+        }
+
+        // Admin Login Action
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value;
+
+            if (email.toLowerCase() === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                alert("Admin authentication verified!");
+                // Correctly redirects up one folder and into the admin portal
+                window.location.href = "../admin-portal/dashboard.html";
+            } else {
+                alert("Invalid Admin Username or Password.");
+            }
+        }
+    </script>
+</body>
+</html>
