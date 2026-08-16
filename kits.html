@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNG Kits & Prices | AutoGas Solutions</title>
+    <title>CNG Kits Catalog | AutoGas Solutions</title>
     
     <!-- Link to your CSS files -->
     <link rel="stylesheet" href="css/global.css">
@@ -14,13 +14,15 @@
     <!-- Navigation Bar -->
     <header class="navbar">
         <div class="logo">
-            <!-- Replace with your exported Canva logo -->
-            <h2>AutoGas Solutions</h2>
+            <!-- Company name acts as a button to the home page -->
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <h2>AutoGas Solutions</h2>
+            </a>
         </div>
         <nav class="nav-links">
             <a href="index.html">Home</a>
             <a href="kits.html" class="active">CNG Kits</a>
-            <a href="services.html">Services</a>
+            <a href="about.html">About Us</a>
             <a href="customer-portal/login.html" class="login-btn">Customer Login</a>
         </nav>
     </header>
@@ -28,96 +30,43 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Our CNG Kits</h1>
-            <p>100% Genuine, RTO-Approved Kits for Maximum Mileage and Safety.</p>
+            <h1>RTO-Approved CNG Kits</h1>
+            <p>Explore our premium range of sequential and conventional kits designed for maximum mileage and safety.</p>
         </div>
     </section>
 
-    <!-- Catalog Layout (Sidebar + Product Grid) -->
+    <!-- Catalog Section with Sidebar Filters -->
     <section class="catalog-section">
-        <div class="container catalog-layout">
-            
-            <!-- Sidebar Filters -->
-            <aside class="sidebar-filters">
-                <h3>Filter By</h3>
+        <div class="container">
+            <div class="catalog-layout">
                 
-                <div class="filter-group">
-                    <h4>Kit Type</h4>
-                    <label><input type="checkbox" name="type" value="sequential"> Sequential Kits</label>
-                    <label><input type="checkbox" name="type" value="conventional"> Conventional/Venturi Kits</label>
+                <!-- Sidebar Filters -->
+                <aside class="sidebar-filters">
+                    <h3>Filter By</h3>
+                    
+                    <!-- Kit Type Filters -->
+                    <div class="filter-group">
+                        <h4>Kit Type</h4>
+                        <label><input type="checkbox" data-filter="type" value="sequential"> Sequential Kits</label>
+                        <label><input type="checkbox" data-filter="type" value="conventional"> Conventional/Venturi Kits</label>
+                    </div>
+
+                    <!-- Brand Filters -->
+                    <div class="filter-group">
+                        <h4>Brand</h4>
+                        <label><input type="checkbox" data-filter="brand" value="lovato"> Lovato</label>
+                        <label><input type="checkbox" data-filter="brand" value="motozen"> Motozen</label>
+                        <label><input type="checkbox" data-filter="brand" value="brc"> BRC</label>
+                        <label><input type="checkbox" data-filter="brand" value="tomasetto"> Tomasetto</label>
+                    </div>
+                </aside>
+
+                <!-- Products Grid (Now automatically filled by JavaScript below) -->
+                <div class="products-grid" id="dynamic-kit-grid">
+                    <!-- Javascript will inject the kit cards here -->
                 </div>
 
-                <div class="filter-group">
-                    <h4>Brand</h4>
-                    <label><input type="checkbox" name="brand" value="lovato"> Lovato</label>
-                    <label><input type="checkbox" name="brand" value="motozen"> Motozen</label>
-                    <label><input type="checkbox" name="brand" value="brc"> BRC</label>
-                    <label><input type="checkbox" name="brand" value="tomasetto"> Tomasetto</label>
-                </div>
-            </aside>
-
-            <!-- Product Grid -->
-            <div class="products-grid">
-                
-                <!-- Product Card 1 -->
-                <div class="kit-card">
-                    <div class="kit-image-placeholder">
-                        <!-- Add img tag here once you have assets from Canva -->
-                        <span>Lovato Image</span>
-                    </div>
-                    <div class="kit-info">
-                        <span class="badge">RTO Approved</span>
-                        <h3>Lovato OBD-II Sequential Kit</h3>
-                        <p>Italian technology. Best for modern 3 and 4-cylinder hatchbacks and sedans.</p>
-                        <ul class="features">
-                            <li>✔ 1-Year Manufacturer Warranty</li>
-                            <li>✔ Premium Injectors</li>
-                            <li>✔ Zero power loss</li>
-                        </ul>
-                        <p class="price-estimate">Est. ₹45,000 - ₹48,000</p>
-                        <button class="btn btn-primary quote-btn" onclick="openQuoteModal('Lovato OBD-II')">Get Final Quote</button>
-                    </div>
-                </div>
-
-                <!-- Product Card 2 -->
-                <div class="kit-card">
-                    <div class="kit-image-placeholder">
-                        <span>Motozen Image</span>
-                    </div>
-                    <div class="kit-info">
-                        <span class="badge">RTO Approved</span>
-                        <h3>Motozen Sequential Kit</h3>
-                        <p>Highly reliable and budget-friendly. Great for daily city driving.</p>
-                        <ul class="features">
-                            <li>✔ 1-Year Warranty</li>
-                            <li>✔ Advanced ECU Tuning</li>
-                            <li>✔ High mileage efficiency</li>
-                        </ul>
-                        <p class="price-estimate">Est. ₹38,000 - ₹42,000</p>
-                        <button class="btn btn-primary quote-btn" onclick="openQuoteModal('Motozen Sequential')">Get Final Quote</button>
-                    </div>
-                </div>
-
-                <!-- Product Card 3 -->
-                <div class="kit-card">
-                    <div class="kit-image-placeholder">
-                        <span>BRC Image</span>
-                    </div>
-                    <div class="kit-info">
-                        <span class="badge">Classic</span>
-                        <h3>BRC Conventional Kit</h3>
-                        <p>Traditional venturi system best suited for older, non-injected engine models.</p>
-                        <ul class="features">
-                            <li>✔ 6-Month Warranty</li>
-                            <li>✔ Low Maintenance Cost</li>
-                            <li>✔ Heavy-duty reducer</li>
-                        </ul>
-                        <p class="price-estimate">Est. ₹25,000 - ₹28,000</p>
-                        <button class="btn btn-primary quote-btn" onclick="openQuoteModal('BRC Conventional')">Get Final Quote</button>
-                    </div>
-                </div>
-
-            </div> <!-- End Products Grid -->
+            </div>
         </div>
     </section>
 
@@ -126,11 +75,121 @@
         <div class="container">
             <p>&copy; 2026 AutoGas Solutions. All rights reserved.</p>
             <p>Serving Visnagar | Emergency Breakdown: +91 98765 43210</p>
+            <p style="margin-top: 20px; font-size: 0.8rem;">
+                <a href="admin-portal/dashboard.html" style="color: rgba(255, 255, 255, 0.4); text-decoration: none;">Staff / Admin Dashboard</a>
+            </p>
         </div>
     </footer>
 
-    <!-- Load JavaScript -->
+    <!-- Link to Main JavaScript (This MUST be loaded before the script below so the Modal function exists) -->
     <script src="js/storefront/main.js"></script>
 
+    <!-- JavaScript to automatically load and filter kits -->
+    <script>
+        /* ==========================================================================
+           PHASE 1 DATABASE SIMULATION
+           ========================================================================== */
+        const kitDatabase = [
+            {
+                name: "Lovato OBD-II Sequential Kit",
+                brand: "lovato",
+                type: "sequential",
+                imageText: "Lovato Image",
+                description: "Italian technology. Best for modern 3 and 4-cylinder hatchbacks and sedans.",
+                features: ["✓ 1-Year Manufacturer Warranty", "✓ Premium Injectors", "✓ Zero power loss"],
+                price: "Est. ₹ 42,000 - ₹ 48,000"
+            },
+            {
+                name: "Motozen Sequential Kit",
+                brand: "motozen",
+                type: "sequential",
+                imageText: "Motozen Image",
+                description: "Highly reliable and budget-friendly. Great for daily city driving.",
+                features: ["✓ 1-Year Warranty", "✓ Advanced ECU Tuning", "✓ High mileage efficiency"],
+                price: "Est. ₹ 35,000 - ₹ 40,000"
+            },
+            {
+                name: "BRC Conventional Kit",
+                brand: "brc",
+                type: "conventional",
+                imageText: "BRC Image",
+                description: "Sturdy, mechanical setup tailored for older carbureted or non-EFI vehicles.",
+                features: ["✓ Heavy-duty reducer", "✓ Low maintenance cost", "✓ Long cylinder lifespan"],
+                price: "Est. ₹ 28,000 - ₹ 32,000"
+            },
+            {
+                name: "Tomasetto Achille Sequential",
+                brand: "tomasetto",
+                type: "sequential",
+                imageText: "Tomasetto Image",
+                description: "World-renowned component durability with smooth acceleration profiles.",
+                features: ["✓ Fast response injectors", "✓ Enhanced thermal stability", "✓ Complete RTO documentation"],
+                price: "Est. ₹ 44,000 - ₹ 50,000"
+            }
+        ];
+
+        // Function to build the HTML for the cards automatically
+        function renderKits() {
+            const grid = document.getElementById('dynamic-kit-grid');
+            grid.innerHTML = ''; // Clear the grid
+
+            kitDatabase.forEach(kit => {
+                // Combine features into a list
+                const featureList = kit.features.map(f => `<li>${f}</li>`).join('');
+
+                // Create the card HTML - Notice the updated onclick line!
+                const cardHTML = `
+                    <div class="kit-card" data-type="${kit.type}" data-brand="${kit.brand}">
+                        <div class="kit-image-placeholder">
+                            <span>${kit.imageText}</span>
+                        </div>
+                        <div class="kit-info">
+                            <span class="badge" style="background:#e6f8ed; color:#2ecc71; padding:4px 8px; border-radius:4px; font-size:0.8rem; font-weight:bold;">RTO Approved</span>
+                            <h3 style="color:var(--primary-blue); margin:10px 0;">${kit.name}</h3>
+                            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:15px;">${kit.description}</p>
+                            <ul class="features" style="padding-left:0; list-style:none; margin-bottom:15px; font-size:0.85rem; color:var(--text-dark);">
+                                ${featureList}
+                            </ul>
+                            <div class="price-estimate" style="font-size:1.2rem; font-weight:bold; border-top:1px solid #eee; padding-top:15px;">${kit.price}</div>
+                            <button class="btn btn-primary" style="width:100%; margin-top:15px;" onclick="openQuoteModal('${kit.name}')">Get Final Quote</button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHTML;
+            });
+        }
+
+        // Function to handle the filtering
+        function filterProducts() {
+            const selectedTypes = Array.from(document.querySelectorAll('.filter-group input[data-filter="type"]:checked')).map(cb => cb.value);
+            const selectedBrands = Array.from(document.querySelectorAll('.filter-group input[data-filter="brand"]:checked')).map(cb => cb.value);
+            const productCards = document.querySelectorAll('.kit-card');
+
+            productCards.forEach(card => {
+                const cardType = card.getAttribute('data-type');
+                const cardBrand = card.getAttribute('data-brand');
+
+                const matchesType = (selectedTypes.length === 0) || selectedTypes.includes(cardType);
+                const matchesBrand = (selectedBrands.length === 0) || selectedBrands.includes(cardBrand);
+
+                if (matchesType && matchesBrand) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Run when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            renderKits(); // Build the products
+
+            // Attach listeners to checkboxes
+            const filterCheckboxes = document.querySelectorAll('.sidebar-filters input[type="checkbox"]');
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', filterProducts);
+            });
+        });
+    </script>
 </body>
 </html>
