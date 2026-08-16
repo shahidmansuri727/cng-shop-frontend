@@ -3,24 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNG Services & Hydro-Testing | AutoGas Solutions</title>
+    <title>Services & About Us | AutoGas Solutions</title>
     
     <!-- Link to your CSS files -->
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/storefront.css">
+
+    <style>
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .service-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 25px;
+        }
+
+        .service-card ul li {
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-card ul li::before {
+            content: "✓";
+            color: var(--eco-green);
+            font-weight: bold;
+        }
+
+        .info-panel {
+            background: var(--bg-light); 
+            padding: 30px; 
+            border-radius: 8px; 
+            border-left: 5px solid var(--eco-green); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+
+        .cta-section {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 60px;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
 
     <!-- Navigation Bar -->
     <header class="navbar">
         <div class="logo">
-            <!-- Replace with your exported Canva logo -->
-            <h2>AutoGas Solutions</h2>
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <h2>AutoGas Solutions</h2>
+            </a>
         </div>
         <nav class="nav-links">
             <a href="index.html">Home</a>
             <a href="kits.html">CNG Kits</a>
-            <a href="services.html" class="active">Services</a>
+            <a href="services.html" class="active">Services & About</a>
             <a href="customer-portal/login.html" class="login-btn">Customer Login</a>
         </nav>
     </header>
@@ -28,75 +103,109 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Our Expert CNG Services</h1>
-            <p>From new installations to mandatory compliance testing, we keep your car running safely and smoothly.</p>
+            <h1>Services & About Us</h1>
+            <p>Your trusted partner for safe, economical, and RTO-approved CNG conversions in Visnagar.</p>
         </div>
     </section>
 
-    <!-- Detailed Services List -->
-    <section class="services-detail-section">
-        <div class="container">
+    <!-- About & Location Section (Top Half) -->
+    <section class="container" style="padding: 50px 20px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch;">
+            
+            <!-- Mission & Details -->
+            <div>
+                <h2 style="color: var(--primary-blue); margin-bottom: 15px; font-size: 1.8rem;">Our Mission</h2>
+                <p style="color: var(--text-dark); font-size: 1.05rem; margin-bottom: 20px; line-height: 1.8;">
+                    We are dedicated to helping drivers cut their fuel costs while reducing their environmental impact. With expert, certified technicians and authentic OEM parts, we ensure every CNG installation meets strict government safety standards for complete peace of mind.
+                </p>
+                <h3 style="color: var(--primary-blue); margin-bottom: 10px;">The Digital Garage Difference</h3>
+                <p style="color: var(--text-muted); line-height: 1.6;">
+                    Unlike standard garages, we offer a fully digitized experience. Secure your 3-year hydro-test tracking, download past digital invoices, and receive automated WhatsApp alerts through our custom Customer Portal.
+                </p>
+            </div>
+
+            <!-- Contact & Location Box -->
+            <div class="info-panel">
+                <h3 style="margin-top: 0; margin-bottom: 20px; color: var(--primary-blue); font-size: 1.4rem;">Visnagar Branch</h3>
+                <p style="margin-bottom: 10px; font-size: 1.05rem;">
+                    <strong style="color: var(--text-dark);">📍 Location:</strong><br> 
+                    Near SPCE Campus, Visnagar, Gujarat 384315
+                </p>
+                <p style="margin-bottom: 10px; font-size: 1.05rem;">
+                    <strong style="color: var(--text-dark);">🕒 Business Hours:</strong><br> 
+                    Mon - Sat: 9:00 AM - 7:00 PM
+                </p>
+                <p style="margin-bottom: 10px; font-size: 1.05rem;">
+                    <strong style="color: var(--text-dark);">📞 Contact / WhatsApp:</strong><br> 
+                    +91 98765 43210
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Services Section (Bottom Half) -->
+    <section class="container" style="padding: 20px 20px 50px;">
+        <h2 style="color: var(--primary-blue); margin-bottom: 10px; font-size: 1.8rem; text-align: center;">Our Expert Services</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">From initial installation to lifetime maintenance, we handle everything under one roof.</p>
+        
+        <div class="services-grid">
             
             <!-- Service 1: Installation -->
-            <div class="service-row">
-                <div class="service-image-placeholder">
-                    <!-- Image of a clean engine bay with CNG injectors -->
-                    <span>Installation Image</span>
-                </div>
-                <div class="service-info">
-                    <h2>Premium CNG Kit Installation</h2>
-                    <p>We specialize in flawless integration of Sequential and Conventional CNG kits. Our installations are designed to look factory-fitted, ensuring no loose wiring and maximum safety.</p>
-                    <ul>
-                        <li>Precision drilling and manifold tapping.</li>
-                        <li>High-quality brackets for secure cylinder mounting.</li>
-                        <li>Complete RTO documentation and RC endorsement assistance.</li>
-                    </ul>
-                </div>
+            <div class="service-card">
+                <h3>Premium Kit Installation</h3>
+                <p>Flawless fitting of RTO-approved Sequential and Conventional CNG kits by certified technicians.</p>
+                <ul>
+                    <li>Computerized ECU Mapping</li>
+                    <li>Leak-proof Multi-valve fitting</li>
+                    <li>Same-day delivery for most cars</li>
+                </ul>
+                <a href="kits.html" class="btn btn-outline" style="width: 100%; text-align: center; display: block; box-sizing: border-box;">View Kits</a>
             </div>
 
-            <!-- Service 2: Hydro-Testing (The feature you requested) -->
-            <div class="service-row reverse-row">
-                <div class="service-image-placeholder">
-                    <!-- Image of a cylinder being tested or a certification badge -->
-                    <span>Hydro-Testing Image</span>
-                </div>
-                <div class="service-info">
-                    <h2>3-Year Mandatory Hydro-Testing</h2>
-                    <p>Government regulations require all CNG cylinders to be hydro-tested every 3 years. We handle the complete removal, testing, certification, and re-installation process.</p>
-                    <div class="highlight-box">
-                        <strong>⭐ Smart Alert System</strong>
-                        <p>When you get your kit installed or tested with us, our system automatically tracks your expiry date. You and our workshop will receive an automated SMS/WhatsApp alert 7 days before your 3-year certificate expires!</p>
-                    </div>
-                </div>
+            <!-- Service 2: Hydro Testing -->
+            <div class="service-card">
+                <h3 style="color: var(--eco-green);">3-Year Hydro-Testing</h3>
+                <p>Government mandated cylinder testing to ensure your CNG tank can safely handle high gas pressure.</p>
+                <ul>
+                    <li>Ultrasonic thickness check</li>
+                    <li>High-pressure water testing</li>
+                    <li>New compliance plate issued</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;" onclick="alert('Please call +91 98765 43210 to book a Hydro-Test.')">Book Hydro-Test</button>
             </div>
 
-            <!-- Service 3: Tuning & Maintenance -->
-            <div class="service-row">
-                <div class="service-image-placeholder">
-                    <!-- Image of a laptop connected to a car's ECU -->
-                    <span>Computerized Tuning Image</span>
-                </div>
-                <div class="service-info">
-                    <h2>Computerized Tuning & Maintenance</h2>
-                    <p>Experiencing jerks, stalling, or low mileage? Our advanced software diagnostics allow us to fine-tune your CNG ECU for optimal performance, bridging the gap between petrol and gas delivery.</p>
-                    <ul>
-                        <li>Reducer pressure calibration.</li>
-                        <li>CNG filter replacement.</li>
-                        <li>Leak testing with electronic sniffers.</li>
-                        <li>Spark plug inspection and gap adjustment.</li>
-                    </ul>
-                </div>
+            <!-- Service 3: Routine Maintenance -->
+            <div class="service-card">
+                <h3>Routine Tuning & Servicing</h3>
+                <p>Is your car losing mileage or jerking? Our diagnostic tools will pinpoint and fix the exact issue immediately.</p>
+                <ul>
+                    <li>CNG Filter Replacement</li>
+                    <li>Reducer pressure adjustment</li>
+                    <li>Spark plug & coil inspection</li>
+                </ul>
+                <button class="btn btn-outline" style="width: 100%;" onclick="alert('Call +91 98765 43210 to schedule a diagnostic check-up.')">Schedule Service</button>
+            </div>
+
+            <!-- Service 4: RTO Documentation -->
+            <div class="service-card">
+                <h3>RTO Endorsement Support</h3>
+                <p>Navigating government paperwork can be stressful. We provide complete documentation support.</p>
+                <ul>
+                    <li>Form 22 & Fitting Certificate</li>
+                    <li>Insurance update guidance</li>
+                    <li>Hassle-free process tracking</li>
+                </ul>
+                <button class="btn btn-outline" style="width: 100%;" onclick="alert('Contact our Visnagar office for RTO documentation help.')">Get RTO Help</button>
             </div>
 
         </div>
-    </section>
 
-    <!-- Call to Action Section -->
-    <section class="cta-section">
-        <div class="container text-center">
-            <h2>Ready to book a service?</h2>
-            <p>Don't wait until your cylinder is expired. Book your slot today to avoid waiting in line at the garage.</p>
-            <button class="btn btn-primary cta-btn" onclick="openBookingForm()">Book an Appointment</button>
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2 style="color: white;">Ready to Upgrade Your Drive?</h2>
+            <p style="color: white;">Join thousands of happy drivers in Visnagar saving money every day on fuel.</p>
+            <a href="customer-portal/login.html" class="btn" style="background-color: var(--eco-green); color: white; border: none; font-size: 1.1rem; padding: 12px 30px;">Create Your Digital Garage Profile</a>
         </div>
     </section>
 
@@ -105,11 +214,12 @@
         <div class="container">
             <p>&copy; 2026 AutoGas Solutions. All rights reserved.</p>
             <p>Serving Visnagar | Emergency Breakdown: +91 98765 43210</p>
+            
+            <p style="margin-top: 20px; font-size: 0.8rem;">
+                <a href="admin-portal/login.html" style="color: rgba(255, 255, 255, 0.4); text-decoration: none;">Staff / Admin Login</a>
+            </p>
         </div>
     </footer>
-
-    <!-- Load JavaScript -->
-    <script src="js/storefront/main.js"></script>
 
 </body>
 </html>
