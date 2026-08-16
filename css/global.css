@@ -1,39 +1,19 @@
 /* ==========================================================================
-   1. GLOBAL VARIABLES (The AutoGas Solutions Design System)
+   css/global.css - AutoGas Solutions (Global Styles & Variables)
    ========================================================================== */
+
+/* --- CSS Variables (Color Palette) --- */
 :root {
-    /* Brand Colors */
-    --primary-blue: #0d3b66;      /* Trustworthy dark blue for headers/admin */
-    --eco-green: #2ecc71;         /* Green for CNG/Savings/Primary Actions */
-    --eco-green-hover: #27ae60;
-    --accent-orange: #e67e22;     /* For warnings or secondary actions */
-
-    /* Status Colors */
-    --success: #2ecc71;
-    --warning: #f1c40f;
-    --warning-text: #d35400;
-    --danger: #e74c3c;
-    --info: #3498db;
-
-    /* Backgrounds & Text */
-    --bg-light: #f8f9fa;
-    --bg-white: #ffffff;
-    --text-dark: #2c3e50;
+    --primary-blue: #0d3b66;
+    --eco-green: #2ecc71;
+    --danger-red: #e74c3c;
+    --text-dark: #333333;
     --text-muted: #7f8c8d;
-    --border-color: #e0e0e0;
-
-    /* Spacing & Layout */
-    --container-width: 1200px;
-    --border-radius: 8px;
-    --transition-speed: 0.3s;
-    
-    /* Typography */
-    --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --bg-light: #f8f9fa;
+    --white: #ffffff;
 }
 
-/* ==========================================================================
-   2. CSS RESET & BASE STYLES
-   ========================================================================== */
+/* --- Reset & Base Styles --- */
 * {
     margin: 0;
     padding: 0;
@@ -41,213 +21,190 @@
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-dark);
     background-color: var(--bg-light);
     line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: var(--primary-blue);
-    margin-bottom: 0.5rem;
-}
-
-a {
-    text-decoration: none;
-    color: var(--primary-blue);
-    transition: color var(--transition-speed);
-}
-
-a:hover {
-    color: var(--eco-green);
-}
-
-/* ==========================================================================
-   3. LAYOUT UTILITIES
-   ========================================================================== */
 .container {
-    max-width: var(--container-width);
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-.flex-between {
+/* --- Navigation Bar (Fixed Overlap) --- */
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 15px 40px;
+    background-color: #ffffff !important; /* Force solid white so text NEVER bleeds through */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 9999 !important; /* Force it to the top layer */
+    transition: all 0.3s ease;
 }
 
-.text-center { text-align: center; }
-.text-success { color: var(--success); }
-.warning-text { color: var(--warning-text); }
-.full-width { width: 100%; }
-.hidden { display: none !important; }
-
-.card-shadow {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    border-radius: var(--border-radius);
+/* --- When the user scrolls down --- */
+.navbar.scrolled {
+    padding: 15px 20px !important;
+    justify-content: center !important; /* Centers the AutoGas logo */
 }
 
-/* ==========================================================================
-   4. BUTTONS
-   ========================================================================== */
+/* Hide everything inside the nav-links menu when scrolled */
+.navbar.scrolled .nav-links {
+    display: none !important; 
+}
+
+.navbar .logo h2 {
+    color: var(--primary-blue);
+    margin: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+    color: var(--eco-green);
+}
+
+/* --- Global Buttons --- */
 .btn {
     display: inline-block;
-    padding: 12px 24px;
-    font-size: 1rem;
-    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
     text-align: center;
-    border: 2px solid transparent;
-    border-radius: var(--border-radius);
     cursor: pointer;
-    transition: all var(--transition-speed) ease;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
 }
 
 .btn-primary {
     background-color: var(--eco-green);
-    color: var(--bg-white);
+    color: var(--white);
 }
 
 .btn-primary:hover {
-    background-color: var(--eco-green-hover);
-    color: var(--bg-white);
-}
-
-.btn-secondary {
-    background-color: var(--primary-blue);
-    color: var(--bg-white);
-}
-
-.btn-secondary:hover {
-    background-color: #092a4a;
-    color: var(--bg-white);
+    background-color: #27ae60;
 }
 
 .btn-outline {
     background-color: transparent;
-    border-color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
     color: var(--primary-blue);
 }
 
 .btn-outline:hover {
     background-color: var(--primary-blue);
-    color: var(--bg-white);
+    color: var(--white);
 }
 
-.btn-small {
-    padding: 8px 16px;
-    font-size: 0.875rem;
+/* The Login Button in Header */
+.login-btn {
+    border: 2px solid var(--primary-blue) !important;
+    padding: 8px 18px;
+    border-radius: 5px;
+    color: var(--primary-blue) !important;
 }
 
-/* ==========================================================================
-   5. FORMS & INPUTS
-   ========================================================================== */
-.input-group {
-    margin-bottom: 1.2rem;
-    text-align: left;
+.login-btn:hover {
+    background-color: var(--primary-blue) !important;
+    color: var(--white) !important;
 }
 
-.input-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-input[type="date"],
-select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: var(--font-family);
-    transition: border-color var(--transition-speed);
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: var(--eco-green);
-    box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.2);
+/* --- Footer --- */
+.site-footer {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 50px;
 }
 
 /* ==========================================================================
-   6. STATUS BADGES
+   Mobile Navigation Fix (Screens smaller than 768px)
    ========================================================================== */
-.status-badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    text-transform: uppercase;
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 10px;
+        text-align: center;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+        padding: 5px 8px;
+    }
+
+    .nav-links .login-btn {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+    }
+}
+/* --- Smart Scroll Header Effects --- */
+.navbar {
+    transition: all 0.3s ease; /* Makes the color change smooth */
 }
 
-.status-badge.success, .status-badge.paid {
-    background-color: rgba(46, 204, 113, 0.15);
-    color: #27ae60;
+/* The darker white color when scrolled */
+.navbar.scrolled {
+    background-color: #e9ecef; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
-.status-badge.warning, .status-badge.pending {
-    background-color: rgba(241, 196, 15, 0.2);
-    color: var(--warning-text);
+@media (max-width: 768px) {
+    /* Hide the links on mobile when scrolled down */
+    .navbar.scrolled .nav-links {
+        display: none;
+    }
+    
+    /* Keep the company name perfectly centered */
+    .navbar.scrolled {
+        padding: 15px;
+    }
 }
-
-.status-badge.danger {
-    background-color: rgba(231, 76, 60, 0.15);
-    color: var(--danger);
-}
-
 /* ==========================================================================
-   7. MODALS & OVERLAYS (Used in Admin CRM and Billing)
+   Smart Scroll Header (Only show company name)
    ========================================================================== */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 999;
+.navbar {
+    transition: all 0.3s ease; /* Makes the change smooth */
 }
 
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--bg-white);
-    border-radius: var(--border-radius);
-    z-index: 1000;
-    width: 90%;
-    max-width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+/* When the user scrolls down, apply these rules: */
+.navbar.scrolled .nav-links {
+    display: none !important; /* Hides the links completely */
 }
 
-.modal-content {
-    padding: 25px;
-}
-
-.modal-header {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-}
-
-.close-btn {
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: var(--text-muted);
-}
-
-.close-btn:hover {
-    color: var(--danger);
+.navbar.scrolled {
+    justify-content: center !important; /* Centers AutoGas Solutions */
+    padding: 12px 20px !important; /* Makes the header slightly thinner */
+    background-color: rgba(255, 255, 255, 0.95) !important; /* Keeps it white */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
 }

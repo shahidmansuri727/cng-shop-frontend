@@ -40,7 +40,7 @@
    2. HERO SECTION (Home Page)
    ========================================================================== */
 .hero-section {
-    background: linear-gradient(rgba(13, 59, 102, 0.85), rgba(13, 59, 102, 0.85)), url('../assets/hero-bg.jpg') center/cover;
+    background: linear-gradient(rgba(13, 59, 102, 0.85), rgba(13, 59, 102, 0.85)), url('D:\NS\cng-shop-frontend\assets\img\hero-bg.png') center/cover;
     color: var(--bg-white);
     text-align: center;
     padding: 100px 20px;
@@ -280,4 +280,28 @@
         text-align: center;
     }
     .service-info ul { text-align: left; }
+}
+/* ==========================================================================
+   Responsive Hero Image
+   ========================================================================== */
+.hero-banner-img {
+    max-width: 100%; /* Forces the image to never overflow the screen */
+    height: auto; /* Keeps the image proportions perfect so it doesn't squish */
+    border-radius: 12px; /* Adds nice, modern curved corners */
+    margin: 20px 0; /* Adds breathing room above and below the image */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Adds a subtle shadow to make it pop */
+    display: block;
+}
+
+/* Ensure the hero buttons stack nicely below the image on mobile */
+@media (max-width: 768px) {
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+    .hero-buttons .btn {
+        width: 100%;
+    }
 }
