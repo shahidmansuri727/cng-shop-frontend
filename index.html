@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium CNG Installations | Cut Your Fuel Costs</title>
+    <title>AutoGas Solutions | Premium CNG Installations in Visnagar</title>
     
     <!-- Link to your CSS files -->
     <link rel="stylesheet" href="css/global.css">
@@ -14,77 +14,86 @@
     <!-- Navigation Bar -->
     <header class="navbar">
         <div class="logo">
-            <!-- Replace with your exported Canva logo -->
-            <h2>NS MOTORS</h2>
+            <!-- Company name acts as a button to the home page -->
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <h2>AutoGas Solutions</h2>
+            </a>
         </div>
         <nav class="nav-links">
             <a href="index.html" class="active">Home</a>
             <a href="kits.html">CNG Kits</a>
-            <a href="services.html">Services</a>
+            <a href="about.html">About Us</a>
             <a href="customer-portal/login.html" class="login-btn">Customer Login</a>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Cut Your Fuel Costs in Half.</h1>
-            <p>Premium RTO-Approved CNG Installations & Expert Servicing for Visnagar and surrounding Gujarat.</p>
-            <div class="hero-buttons">
-                <a href="kits.html" class="btn btn-primary">Browse CNG Kits</a>
-                <a href="services.html" class="btn btn-secondary">Book a Service</a>
-            </div>
+<section class="hero-section">
+    <div class="container hero-content">
+        <h1>Cut Your Fuel Costs in Half.</h1>
+        <p>Premium RTO-Approved CNG Installations & Expert Servicing for Visnagar and surrounding Gujarat.</p>
+        
+        <!-- FIXED: Moved the image here, outside the buttons! -->
+        <img src="assets/img/hero-bg.png" alt="AutoGas CNG Kits" class="hero-banner-img">
+        
+        <div class="hero-buttons">
+            <a href="kits.html" class="btn btn-primary">Browse CNG Kits</a>
+            <a href="about.html" class="btn btn-outline" style="border-color: white; color: white;">Visit Workshop</a>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Interactive Savings Calculator -->
+    <!-- CNG Savings Calculator Section -->
     <section class="calculator-section">
         <div class="container">
-            <h2>Calculate Your CNG Savings</h2>
-            <p>See exactly how much you can save every month by switching to CNG.</p>
+            <h2>Calculate Your Monthly Savings</h2>
+            <p>See how much money you keep in your pocket by switching your car to CNG.</p>
             
             <div class="calculator-box">
                 <div class="input-group">
-                    <label for="dailyKm">Daily Driving Distance (KM):</label>
-                    <input type="number" id="dailyKm" value="50" min="1">
-                </div>
-                
-                <div class="input-group">
-                    <label for="petrolPrice">Current Petrol Price (₹/Litre):</label>
-                    <input type="number" id="petrolPrice" value="95" min="1">
+                    <label for="dailyKm">Average Daily Driving (KM)</label>
+                    <input type="number" id="dailyKm" value="40" min="1">
                 </div>
 
                 <div class="input-group">
-                    <label for="cngPrice">Current CNG Price (₹/Kg):</label>
+                    <label for="petrolPrice">Current Petrol Price (₹ per litre)</label>
+                    <input type="number" id="petrolPrice" value="96" min="1">
+                </div>
+
+                <div class="input-group">
+                    <label for="cngPrice">Current CNG Price (₹ per kg)</label>
                     <input type="number" id="cngPrice" value="75" min="1">
                 </div>
 
-                <button class="btn btn-primary" onclick="calculateSavings()">Calculate Savings</button>
-                
-                <!-- The JavaScript will inject the final amount into this h3 -->
                 <div class="result-display">
-                    <h3 id="savings-result">Your monthly savings will appear here.</h3>
+                    <h3>Your estimated savings:</h3>
+                    <div id="savings-result" style="font-size: 2rem; font-weight: bold; color: var(--eco-green); margin-top: 10px;">
+                        <!-- Calculated dynamically via JS, fallback static text below -->
+                        ₹ 4,200 / month
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Overview -->
-    <section class="services-overview">
-        <div class="container">
-            <h2>Our Expertise</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3>New Kit Installation</h3>
-                    <p>Sequential and Conventional kits from top brands like Lovato and Motozen.</p>
+    <!-- Why Choose Us Section -->
+    <section class="catalog-section" style="background-color: white;">
+        <div class="container text-center" style="max-width: 800px;">
+            <h2>Why Visnagar Drivers Trust AutoGas Solutions</h2>
+            <p style="color: var(--text-muted); margin-bottom: 40px;">We don't just install kits; we provide end-to-end lifetime support for your vehicle.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; text-align: left;">
+                <div style="padding: 20px; background: var(--bg-light); border-radius: 8px;">
+                    <h3 style="font-size: 1.1rem; color: var(--eco-green);">✓ RTO Approved</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Complete documentation and hassle-free RC endorsement support.</p>
                 </div>
-                <div class="service-card">
-                    <h3>3-Year Hydro-Testing</h3>
-                    <p>Mandatory cylinder testing with automated reminders so you never miss a renewal date.</p>
+                <div style="padding: 20px; background: var(--bg-light); border-radius: 8px;">
+                    <h3 style="font-size: 1.1rem; color: var(--eco-green);">✓ 3-Year Tracking</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Automated SMS and WhatsApp reminders for your mandatory cylinder hydro-test.</p>
                 </div>
-                <div class="service-card">
-                    <h3>Computerized Tuning</h3>
-                    <p>Advanced ECU calibration for smooth shifting and maximum engine life.</p>
+                <div style="padding: 20px; background: var(--bg-light); border-radius: 8px;">
+                    <h3 style="font-size: 1.1rem; color: var(--eco-green);">✓ Digital Garage</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Access all your digital invoices and service history anytime online.</p>
                 </div>
             </div>
         </div>
@@ -95,12 +104,49 @@
         <div class="container">
             <p>&copy; 2026 AutoGas Solutions. All rights reserved.</p>
             <p>Serving Visnagar | Emergency Breakdown: +91 98765 43210</p>
+            
+            <!-- Discreet Staff Link -->
+            <p style="margin-top: 20px; font-size: 0.8rem;">
+                <a href="admin-portal/login.html" style="color: rgba(255, 255, 255, 0.4); text-decoration: none;">Staff / Admin Login</a>
+            </p>
         </div>
     </footer>
 
-    <!-- Load the JavaScript files at the bottom for faster page load -->
-    <script src="js/storefront/main.js"></script>
-    <script src="js/storefront/calculator.js"></script>
+    <!-- Inline Script for Basic Calculator Functionality (If JS file is missing) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dailyKm = document.getElementById('dailyKm');
+            const petrolPrice = document.getElementById('petrolPrice');
+            const cngPrice = document.getElementById('cngPrice');
+            const resultDisplay = document.getElementById('savings-result');
+
+            function calculateSavings() {
+                const km = parseFloat(dailyKm.value) || 0;
+                const pPrice = parseFloat(petrolPrice.value) || 0;
+                const cPrice = parseFloat(cngPrice.value) || 0;
+
+                // Assumptions: Petrol mileage = 15km/l, CNG mileage = 20km/kg
+                const petrolCostPerDay = (km / 15) * pPrice;
+                const cngCostPerDay = (km / 20) * cPrice;
+
+                const dailySavings = petrolCostPerDay - cngCostPerDay;
+                const monthlySavings = dailySavings * 30;
+
+                if (monthlySavings > 0) {
+                    resultDisplay.innerText = "₹ " + Math.round(monthlySavings).toLocaleString('en-IN') + " / month";
+                } else {
+                    resultDisplay.innerText = "₹ 0 / month";
+                }
+            }
+
+            dailyKm.addEventListener('input', calculateSavings);
+            petrolPrice.addEventListener('input', calculateSavings);
+            cngPrice.addEventListener('input', calculateSavings);
+            
+            // Initial calculation
+            calculateSavings();
+        });
+    </script>
 
 </body>
 </html>
