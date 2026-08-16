@@ -3,238 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Customers | AutoGas Solutions Admin</title>
+    <title>Customers & Vehicles | AutoGas Admin</title>
     
+    <!-- Link to your CSS files -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/admin-dashboard.css">
+    
+    <style>
+        /* Top Header Flex Layout */
+        .admin-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-header-flex h1 {
+            color: var(--primary-blue);
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        /* Search and Filter Controls */
+        .table-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .table-controls input, .table-controls select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .table-controls input:focus, .table-controls select:focus {
+            border-color: var(--eco-green);
+        }
+
+        /* Table Styling */
+        .admin-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .admin-table th {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
+
+        .admin-table td {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        /* Action Links */
+        .action-link {
+            color: var(--primary-blue);
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+        
+        .action-link:hover {
+            text-decoration: underline;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-active { background: #e6f8ed; color: #2ecc71; }
+        .status-pending { background: #fff3cd; color: #f39c12; }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .table-controls {
+                flex-direction: column;
+            }
+            .table-wrapper {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
-<body class="admin-layout">
+<body class="admin-body">
 
-    <!-- Sidebar Navigation -->
-    <aside class="admin-sidebar">
-        <div class="sidebar-header">
-            <h2>AutoGas Admin</h2>
-            <p>Visnagar Branch</p>
-        </div>
+    <div class="admin-layout">
         
-        <nav class="sidebar-nav">
-            <a href="dashboard.html">📊 Dashboard</a>
-            <a href="customers.html" class="active">👥 Customers & Vehicles</a>
-            <a href="billing.html">📄 Invoicing & Billing</a>
-            <a href="inventory.html">📦 Kit Inventory</a>
-            <a href="settings.html">⚙️ Automation Settings</a>
-        </nav>
-        
-        <div class="sidebar-footer">
-            <a href="login.html" class="logout-btn">🚪 Logout</a>
-        </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="admin-main">
-        
-        <header class="admin-topbar">
-            <div class="topbar-left">
-                <h1>Customers & Vehicles Repository</h1>
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>AutoGas Admin</h2>
+                <p style="color: var(--eco-green); font-size: 0.85rem; margin-top: 5px;">Visnagar Branch</p>
             </div>
-            <div class="topbar-right">
-                <button class="btn btn-primary" onclick="openAddCustomerModal()">+ Add New Installation</button>
-            </div>
-        </header>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html">📊 Dashboard</a>
+                <a href="customers.html" class="active">👥 Customers & Vehicles</a>
+                <a href="billing.html">📄 Invoicing & Billing</a>
+                <a href="inventory.html">📦 Kit Inventory</a>
+                <a href="automation.html">⚙️ Automation Settings</a>
+                <a href="../customer-portal/login.html" class="logout-link" style="margin-top: auto; color: var(--danger-red);">🚪 Logout</a>
+            </nav>
+        </aside>
 
-        <div class="dashboard-content">
+        <!-- Main Content Area -->
+        <main class="admin-main">
             
-            <!-- Filters and Search -->
-            <div class="table-controls flex-between">
-                <div class="search-box">
-                    <input type="text" placeholder="Search by name, phone, or RC number..." id="customerSearch">
-                    <button class="btn btn-secondary btn-small">Search</button>
+            <!-- Top Header -->
+            <header class="admin-header-flex">
+                <div class="header-title">
+                    <h1>Customers & Vehicles CRM</h1>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Manage client profiles, vehicle details, and RTO data.</p>
                 </div>
-                <div class="filter-box">
-                    <select id="statusFilter">
-                        <option value="all">All Vehicles</option>
-                        <option value="active">Active Compliance</option>
-                        <option value="expiring">Expiring Soon (30 Days)</option>
-                        <option value="expired">Expired Hydro-Test</option>
-                    </select>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="alert('Opening New Customer Registration Form...')" style="background-color: var(--eco-green); border: none; font-weight: bold;">+ Add New Customer</button>
                 </div>
+            </header>
+
+            <!-- Search & Filter Controls -->
+            <div class="table-controls">
+                <input type="text" id="customerSearch" placeholder="Search by Name, Phone, RC, or Vehicle..." style="flex: 2;">
+                
+                <select id="vehicleCategory" style="flex: 1;">
+                    <option value="all">All Vehicle Categories</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="SUV">SUV/MUV</option>
+                    <option value="Commercial">Commercial</option>
+                </select>
             </div>
 
             <!-- Customer Data Table -->
-            <div class="table-responsive bg-white card-shadow">
-                <table class="admin-table full-width">
+            <div class="admin-card table-wrapper">
+                <table class="admin-table">
                     <thead>
                         <tr>
                             <th>Customer Name</th>
-                            <th>Phone (WhatsApp)</th>
-                            <th>Vehicle & RTO</th>
-                            <th>Kit Installed</th>
-                            <th>Installation Date</th>
-                            <th>3-Year Expiry Date</th>
+                            <th>Mobile Number</th>
+                            <th>Vehicle & RC Number</th>
+                            <th>Category</th>
+                            <th>Hydro-Test Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- Row 1: Healthy Status -->
+                    <tbody id="customerTableBody">
+                        
+                        <!-- Customer 1 -->
                         <tr>
-                            <td><strong>Sajid Mansuri</strong></td>
-                            <td>+91 9876543211</td>
-                            <td>Hyundai i20 <br><small>GJ-02-XY-9988</small></td>
-                            <td>Lovato Sequential</td>
-                            <td>12 Mar 2025</td>
-                            <td><span class="status-badge success">12 Mar 2028</span></td>
+                            <td><strong>Rahul Sharma</strong></td>
+                            <td>+91 98765 43210</td>
+                            <td>Maruti Swift<br><small style="color: var(--text-muted);">GJ-02-AB-1234</small></td>
+                            <td>Hatchback</td>
+                            <td><span class="status-badge status-active">Valid (2029)</span></td>
                             <td>
-                                <button class="action-btn edit-btn">Edit</button>
-                                <button class="action-btn bill-btn" onclick="window.location.href='billing.html'">Bill</button>
+                                <span class="action-link" onclick="alert('Viewing Profile for Rahul Sharma')">View</span>
+                                <span class="action-link" onclick="alert('Editing Profile...')">Edit</span>
                             </td>
                         </tr>
 
-                        <!-- Row 2: Expiring Soon -->
+                        <!-- Customer 2 -->
                         <tr>
-                            <td><strong>Mustakim Pathan</strong></td>
-                            <td>+91 9876543212</td>
-                            <td>Maruti Ertiga <br><small>GJ-02-AB-5544</small></td>
-                            <td>Motozen Sequential</td>
-                            <td>20 Aug 2023</td>
-                            <td><span class="status-badge warning">20 Aug 2026</span></td>
+                            <td><strong>Sanjay Desai</strong></td>
+                            <td>+91 87654 32109</td>
+                            <td>Honda City<br><small style="color: var(--text-muted);">GJ-01-XX-9876</small></td>
+                            <td>Sedan</td>
+                            <td><span class="status-badge status-pending">Due Next Month</span></td>
                             <td>
-                                <button class="action-btn edit-btn">Edit</button>
-                                <button class="action-btn alert-btn" onclick="alert('WhatsApp Alert Sent!')">Remind</button>
+                                <span class="action-link" onclick="alert('Viewing Profile for Sanjay Desai')">View</span>
+                                <span class="action-link" onclick="alert('Editing Profile...')">Edit</span>
                             </td>
                         </tr>
 
-                        <!-- Row 3: Expired -->
+                        <!-- Customer 3 -->
                         <tr>
-                            <td><strong>Khalil Sheikh</strong></td>
-                            <td>+91 9876543213</td>
-                            <td>Honda City <br><small>GJ-02-MN-1122</small></td>
-                            <td>BRC Conventional</td>
-                            <td>10 Jan 2023</td>
-                            <td><span class="status-badge danger">10 Jan 2026</span></td>
+                            <td><strong>Vikram Patel</strong></td>
+                            <td>+91 76543 21098</td>
+                            <td>Toyota Innova<br><small style="color: var(--text-muted);">GJ-02-YY-5555</small></td>
+                            <td>SUV</td>
+                            <td><span class="status-badge status-active">Valid (2028)</span></td>
                             <td>
-                                <button class="action-btn edit-btn">Edit</button>
-                                <button class="action-btn alert-btn">Remind</button>
+                                <span class="action-link" onclick="alert('Viewing Profile for Vikram Patel')">View</span>
+                                <span class="action-link" onclick="alert('Editing Profile...')">Edit</span>
                             </td>
                         </tr>
+
+                        <!-- Customer 4 -->
+                        <tr>
+                            <td><strong>Nasir Mansuri</strong></td>
+                            <td>+91 99887 76655</td>
+                            <td>Maruti Eeco<br><small style="color: var(--text-muted);">GJ-02-ZZ-1122</small></td>
+                            <td>Commercial</td>
+                            <td><span class="status-badge status-active">Valid (2027)</span></td>
+                            <td>
+                                <span class="action-link" onclick="alert('Viewing Profile for Nasir Mansuri')">View</span>
+                                <span class="action-link" onclick="alert('Editing Profile...')">Edit</span>
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>
 
-            <!-- Pagination (Placeholder) -->
-            <div class="pagination flex-between">
-                <span>Showing 1 to 15 of 342 entries</span>
-                <div class="page-controls">
-                    <button class="btn btn-outline btn-small" disabled>Previous</button>
-                    <button class="btn btn-primary btn-small">1</button>
-                    <button class="btn btn-outline btn-small">2</button>
-                    <button class="btn btn-outline btn-small">Next</button>
-                </div>
-            </div>
+        </main>
+    </div>
 
-        </div> <!-- End Content -->
-
-        <!-- MODAL: Add New Customer / Installation -->
-        <div id="addCustomerModal" class="modal hidden">
-            <div class="modal-content">
-                <div class="modal-header flex-between">
-                    <h2>Register New Installation</h2>
-                    <span class="close-btn" onclick="closeAddCustomerModal()">&times;</span>
-                </div>
-                <div class="modal-body">
-                    <form id="newInstallationForm">
-                        
-                        <h4 class="form-section-title">Customer Details</h4>
-                        <div class="form-grid">
-                            <div class="input-group">
-                                <label>Full Name</label>
-                                <input type="text" required placeholder="e.g. Nasir">
-                            </div>
-                            <div class="input-group">
-                                <label>WhatsApp Number</label>
-                                <input type="tel" required placeholder="+91">
-                            </div>
-                        </div>
-
-                        <h4 class="form-section-title">Vehicle & Kit Details</h4>
-                        <div class="form-grid">
-                            <div class="input-group">
-                                <label>Car Make & Model</label>
-                                <input type="text" required placeholder="e.g. Tata Tiago">
-                            </div>
-                            <div class="input-group">
-                                <label>RTO Registration (RC)</label>
-                                <input type="text" required placeholder="GJ-02-...">
-                            </div>
-                            <div class="input-group">
-                                <label>Kit Brand Installed</label>
-                                <select required>
-                                    <option value="">Select Kit...</option>
-                                    <option value="lovato">Lovato Sequential</option>
-                                    <option value="motozen">Motozen Sequential</option>
-                                    <option value="brc">BRC Conventional</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>Installation Date</label>
-                                <input type="date" id="installDateInput" required onchange="calculateExpiry()">
-                            </div>
-                        </div>
-
-                        <div class="calculated-expiry-box">
-                            <p>Calculated Hydro-Test Expiry Date (3 Years):</p>
-                            <h3 id="displayExpiryDate">--/--/----</h3>
-                            <!-- This hidden input is what would actually get sent to your Node.js backend -->
-                            <input type="hidden" id="hiddenExpiryDate">
-                        </div>
-
-                        <button type="button" class="btn btn-primary full-width" style="margin-top: 15px;" onclick="submitNewCustomer()">
-                            Save Customer & Start Timer
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Overlay for Modal -->
-        <div id="modalOverlay" class="overlay hidden"></div>
-
-    </main>
-
+    <!-- Live Search & Filtering Logic -->
     <script>
-        // Modal Control Functions
-        function openAddCustomerModal() {
-            document.getElementById('addCustomerModal').classList.remove('hidden');
-            document.getElementById('modalOverlay').classList.remove('hidden');
-        }
-
-        function closeAddCustomerModal() {
-            document.getElementById('addCustomerModal').classList.add('hidden');
-            document.getElementById('modalOverlay').classList.add('hidden');
-        }
-
-        // Automatic 3-Year Expiry Calculation
-        function calculateExpiry() {
-            const installInput = document.getElementById('installDateInput').value;
-            if(!installInput) return;
-
-            const installDate = new Date(installInput);
+        function filterCustomers() {
+            // Get the search input and the category filter values
+            const searchInput = document.getElementById('customerSearch').value.toLowerCase();
+            const categorySelect = document.getElementById('vehicleCategory').value.toLowerCase();
             
-            // Add exactly 3 years
-            const expiryDate = new Date(installDate);
-            expiryDate.setFullYear(expiryDate.getFullYear() + 3);
+            // Get all rows in the customer table body
+            const tableRows = document.querySelectorAll('#customerTableBody tr');
 
-            // Format for display (DD/MM/YYYY)
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
-            document.getElementById('displayExpiryDate').innerText = expiryDate.toLocaleDateString('en-IN', options);
-            
-            // Save the raw ISO string for the backend database
-            document.getElementById('hiddenExpiryDate').value = expiryDate.toISOString();
+            tableRows.forEach(row => {
+                // Combine all text inside the row to search easily (Name, Phone, Car, RC)
+                const rowData = row.innerText.toLowerCase();
+                
+                // Extract the specific category from column 4 (index 3)
+                const vehicleType = row.cells[3].innerText.toLowerCase();
+
+                // Check matches
+                const matchesSearch = rowData.includes(searchInput);
+                const matchesCategory = (categorySelect === 'all' || vehicleType === categorySelect);
+
+                // Show or hide row based on matching
+                if (matchesSearch && matchesCategory) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         }
 
-        function submitNewCustomer() {
-            alert("Customer data and 3-year timer successfully saved to database!");
-            closeAddCustomerModal();
-        }
+        // Attach the filtering function to run instantly when typing or changing dropdown
+        document.getElementById('customerSearch').addEventListener('keyup', filterCustomers);
+        document.getElementById('vehicleCategory').addEventListener('change', filterCustomers);
     </script>
-
 </body>
 </html>

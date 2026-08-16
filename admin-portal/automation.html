@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Settings | AutoGas Admin</title>
+    
+    <!-- Link to your CSS files -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/admin-dashboard.css">
+    
+    <style>
+        /* Specific Automation Settings Styles */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .settings-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .settings-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-card p.desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Toggle Switch CSS */
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .toggle-row:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .toggle-subtext {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: normal;
+            margin-top: 3px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--eco-green);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Enforce header layout */
+        .admin-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-header-flex h1 {
+            color: var(--primary-blue);
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        .api-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            background: #e6f8ed;
+            color: #2ecc71;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            .template-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body class="admin-body">
+
+    <div class="admin-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>AutoGas Admin</h2>
+                <p style="color: var(--eco-green); font-size: 0.85rem; margin-top: 5px;">Visnagar Branch</p>
+            </div>
+            <nav class="sidebar-nav">
+    <a href="dashboard.html">📊 Dashboard</a>
+    <a href="customers.html">👥 Customers & Vehicles</a>
+    <a href="billing.html">📄 Invoicing & Billing</a>
+    <a href="inventory.html">📦 Kit Inventory</a>
+    <a href="automation.html" class="active">⚙️ Automation Settings</a>
+    <a href="../customer-portal/login.html" class="logout-link" style="margin-top: auto; color: var(--danger-red);">🚪 Logout</a>
+</nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-main">
+            
+            <!-- Top Header -->
+            <header class="admin-header-flex">
+                <div class="header-title">
+                    <h1>Automation Settings</h1>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Manage WhatsApp APIs and automatic alerts.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="saveAllSettings()" id="saveBtn" style="background-color: var(--eco-green); border: none; font-weight: bold; padding: 12px 24px;">Save Changes</button>
+                </div>
+            </header>
+
+            <div class="settings-grid">
+                
+                <!-- Card 1: Communication API Setup -->
+                <div class="settings-card">
+                    <h3>💬 WhatsApp Business API</h3>
+                    <p class="desc">Connect your business number to send automated PDF invoices and RTO reminders directly to customer phones.</p>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <span class="api-status">✓ Connected to +91 98765 43210</span>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">API Provider</label>
+                        <select class="form-input" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                            <option value="interakt">Interakt</option>
+                            <option value="wati">Wati</option>
+                            <option value="twilio">Twilio</option>
+                            <option value="manual">Manual (Open WhatsApp Web)</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label style="font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 5px;">API Access Token</label>
+                        <input type="password" value="************************" class="form-input" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                    </div>
+                </div>
+
+                <!-- Card 2: Automated Triggers -->
+                <div class="settings-card">
+                    <h3>⚡ Automated Alert Triggers</h3>
+                    <p class="desc">Control which alerts are sent to customers automatically by the system.</p>
+                    
+                    <div class="toggle-row">
+                        <div class="toggle-label">
+                            3-Year Hydro-Test Expiry Alerts
+                            <span class="toggle-subtext">Sends alert 30, 15, and 7 days before RTO expiry.</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked id="triggerHydro">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-label">
+                            Instant Digital Invoices
+                            <span class="toggle-subtext">Sends PDF bill link immediately after saving in Billing.</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked id="triggerInvoice">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-row">
+                        <div class="toggle-label">
+                            Routine Service Reminders
+                            <span class="toggle-subtext">Suggests a check-up every 10,000 km or 6 months.</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="triggerService">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Card 3: Message Templates -->
+                <div class="settings-card" style="grid-column: 1 / -1;">
+                    <h3>📝 Edit Message Templates</h3>
+                    <p class="desc">Customize the standard text sent via WhatsApp. Use variables like {{Name}} and {{Date}}.</p>
+
+                    <div class="template-container" style="display: flex; gap: 20px;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <label style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; display: block;">Hydro-Test Expiry Template</label>
+                            <textarea style="width: 100%; height: 120px; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; resize: vertical;" id="templateHydro">⚠️ *URGENT RTO ALERT* ⚠️
+
+Dear {{Name}}, 
+The mandatory 3-year hydro-test for your CNG cylinder (RC: {{RC_Number}}) is due on {{Expiry_Date}}.
+
+Visit AutoGas Solutions immediately to avoid fines.</textarea>
+                        </div>
+
+                        <div style="flex: 1; min-width: 250px;">
+                            <label style="font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; display: block;">Digital Invoice Template</label>
+                            <textarea style="width: 100%; height: 120px; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; resize: vertical;" id="templateInvoice">Hello {{Name}},
+
+Thank you for choosing AutoGas Solutions! 
+Your service is complete. 
+
+Total Amount: ₹{{Amount}}
+View & Download your digital bill here: {{Invoice_Link}}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Inline Script for Settings Logic -->
+    <script>
+        function saveAllSettings() {
+            // In Phase 2, this will gather the toggle states and textarea values
+            // and send a POST request to your Node.js backend.
+            
+            const btn = document.getElementById('saveBtn');
+            const originalText = btn.innerText;
+            
+            btn.innerText = "Saving...";
+            btn.style.opacity = "0.7";
+            
+            // Simulate network delay for saving
+            setTimeout(() => {
+                btn.innerText = "Settings Saved ✓";
+                btn.style.backgroundColor = "#27ae60"; // Darker green on success
+                btn.style.opacity = "1";
+                
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = "var(--eco-green)";
+                }, 3000);
+            }, 800);
+        }
+    </script>
+</body>
+</html>

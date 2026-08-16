@@ -3,65 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoicing & Billing | AutoGas Solutions Admin</title>
+    <title>Invoicing & Billing | AutoGas Admin</title>
     
+    <!-- Link to your CSS files -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/admin-dashboard.css">
+    
+    <style>
+        /* Header & Metric Cards */
+        .admin-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .admin-header-flex h1 { color: var(--primary-blue); font-size: 1.6rem; margin: 0; }
+
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-blue);
+        }
+        .metric-card h4 {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .metric-card .amount { font-size: 2.2rem; font-weight: bold; color: var(--text-dark); }
+
+        /* Tables & Status Badges */
+        .admin-card { background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow-x: auto; }
+        .admin-table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
+        .admin-table th, .admin-table td { padding: 15px 10px; border-bottom: 1px solid #eee; }
+        .admin-table th { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; font-weight: bold; background-color: #f8f9fa; }
+        
+        .status-badge { padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .status-paid { background: #e6f8ed; color: #2ecc71; }
+        .status-pending { background: #fff3cd; color: #f39c12; }
+        
+        .action-link { color: var(--primary-blue); font-weight: bold; text-decoration: none; cursor: pointer; font-size: 0.9rem; margin-right: 10px; }
+        .action-link:hover { text-decoration: underline; }
+        .action-link.danger { color: var(--danger-red); }
+
+        /* Bill Generator Modal Styles */
+        .modal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; padding: 30px; border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2); width: 90%; max-width: 800px;
+            z-index: 1000; max-height: 90vh; overflow-y: auto;
+        }
+        .overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); z-index: 999;
+        }
+        .hidden { display: none !important; }
+
+        .invoice-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .invoice-table th, .invoice-table td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        .invoice-table input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .grand-total { text-align: right; font-size: 1.5rem; font-weight: bold; color: var(--eco-green); margin-bottom: 20px; }
+    </style>
 </head>
-<body class="admin-layout">
+<body class="admin-body">
 
-    <!-- Sidebar Navigation -->
-    <aside class="admin-sidebar">
-        <div class="sidebar-header">
-            <h2>AutoGas Admin</h2>
-            <p>Visnagar Branch</p>
-        </div>
+    <div class="admin-layout">
         
-        <nav class="sidebar-nav">
-            <a href="dashboard.html">📊 Dashboard</a>
-            <a href="customers.html">👥 Customers & Vehicles</a>
-            <a href="billing.html" class="active">📄 Invoicing & Billing</a>
-            <a href="inventory.html">📦 Kit Inventory</a>
-            <a href="settings.html">⚙️ Automation Settings</a>
-        </nav>
-        
-        <div class="sidebar-footer">
-            <a href="login.html" class="logout-btn">🚪 Logout</a>
-        </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="admin-main">
-        
-        <header class="admin-topbar">
-            <div class="topbar-left">
-                <h1>Billing & Invoicing</h1>
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>AutoGas Admin</h2>
+                <p style="color: var(--eco-green); font-size: 0.85rem; margin-top: 5px;">Visnagar Branch</p>
             </div>
-            <div class="topbar-right">
-                <button class="btn btn-primary" onclick="openInvoiceModal()">+ Create New Bill</button>
-            </div>
-        </header>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html">📊 Dashboard</a>
+                <a href="customers.html">👥 Customers & Vehicles</a>
+                <a href="billing.html" class="active">📄 Invoicing & Billing</a>
+                <a href="inventory.html">📦 Kit Inventory</a>
+                <a href="automation.html">⚙️ Automation Settings</a>
+                <a href="../customer-portal/login.html" class="logout-link" style="margin-top: auto; color: var(--danger-red);">🚪 Logout</a>
+            </nav>
+        </aside>
 
-        <div class="dashboard-content">
+        <!-- Main Content Area -->
+        <main class="admin-main">
             
-            <!-- Billing Overview -->
-            <div class="kpi-grid">
-                <div class="kpi-card">
-                    <h3>Total Collected (August)</h3>
-                    <div class="kpi-value text-success">₹ 1,45,000</div>
+            <header class="admin-header-flex">
+                <div class="header-title">
+                    <h1>Billing & Invoicing</h1>
                 </div>
-                <div class="kpi-card">
-                    <h3>Pending Payments</h3>
-                    <div class="kpi-value warning-text">₹ 38,000</div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="openBillModal()" style="background-color: var(--eco-green); border: none; font-weight: bold; padding: 12px 24px;">+ Create New Bill</button>
+                </div>
+            </header>
+
+            <!-- Financial Summary Cards -->
+            <div class="dashboard-metrics">
+                <div class="metric-card">
+                    <h4>Total Collected (August)</h4>
+                    <div class="amount">₹ 1,45,000</div>
+                </div>
+                <div class="metric-card" style="border-left-color: #f39c12;">
+                    <h4>Pending Payments</h4>
+                    <div class="amount" style="color: #f39c12;">₹ 38,000</div>
                 </div>
             </div>
+
+            <h3 style="color: var(--primary-blue); margin-bottom: 15px;">Recent Invoices</h3>
 
             <!-- Invoices Table -->
-            <div class="table-responsive bg-white card-shadow" style="margin-top: 20px;">
-                <div class="section-header" style="padding: 15px; border-bottom: 1px solid #eee;">
-                    <h2>Recent Invoices</h2>
-                </div>
-                <table class="admin-table full-width">
+            <div class="admin-card">
+                <table class="admin-table">
                     <thead>
                         <tr>
                             <th>Invoice #</th>
@@ -76,12 +139,12 @@
                         <tr>
                             <td><strong>INV-2026-1043</strong></td>
                             <td>14 Aug 2026</td>
-                            <td>Nasir</td>
+                            <td>Nasir Mansuri</td>
                             <td>₹ 45,500</td>
-                            <td><span class="status-badge paid">Paid</span></td>
+                            <td><span class="status-badge status-paid">PAID</span></td>
                             <td>
-                                <button class="action-btn pdf-btn">View PDF</button>
-                                <button class="action-btn alert-btn" onclick="sendWhatsAppBill('Nasir', 'INV-2026-1043')">Resend WA</button>
+                                <span class="action-link" onclick="alert('Opening PDF Viewer...')">View PDF</span>
+                                <span class="action-link danger" onclick="alert('Sending invoice link via WhatsApp to Nasir...')">Resend WA</span>
                             </td>
                         </tr>
                         <tr>
@@ -89,206 +152,233 @@
                             <td>12 Aug 2026</td>
                             <td>Sanjay Desai</td>
                             <td>₹ 850</td>
-                            <td><span class="status-badge paid">Paid</span></td>
+                            <td><span class="status-badge status-paid">PAID</span></td>
                             <td>
-                                <button class="action-btn pdf-btn">View PDF</button>
-                                <button class="action-btn alert-btn">Resend WA</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>INV-2026-1041</strong></td>
-                            <td>10 Aug 2026</td>
-                            <td>Neha Gupta</td>
-                            <td>₹ 38,000</td>
-                            <td><span class="status-badge warning">Partial (₹10k Due)</span></td>
-                            <td>
-                                <button class="action-btn pdf-btn">View PDF</button>
-                                <button class="action-btn alert-btn" style="background: #e67e22;">Send Reminder</button>
+                                <span class="action-link" onclick="alert('Opening PDF Viewer...')">View PDF</span>
+                                <span class="action-link danger" onclick="alert('Sending invoice link via WhatsApp to Sanjay...')">Resend WA</span>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </div> <!-- End Content -->
 
-        <!-- MODAL: Create New Invoice -->
-        <div id="invoiceModal" class="modal hidden">
-            <div class="modal-content invoice-modal">
-                <div class="modal-header flex-between">
-                    <h2>Generate New Digital Bill</h2>
-                    <span class="close-btn" onclick="closeInvoiceModal()">&times;</span>
-                </div>
-                <div class="modal-body">
-                    <form id="newInvoiceForm">
-                        
-                        <!-- Customer Selection -->
-                        <div class="form-grid" style="margin-bottom: 20px;">
-                            <div class="input-group">
-                                <label>Select Customer</label>
-                                <select required>
-                                    <option value="">Search customer...</option>
-                                    <option value="1">Nasir (GJ-02-XY-1234)</option>
-                                    <option value="2">Mustakim Pathan (GJ-02-AB-5544)</option>
-                                    <option value="3">New Customer (Walk-in)</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>Invoice Date</label>
-                                <input type="date" value="2026-08-14" required>
-                            </div>
-                        </div>
+        </main>
+    </div>
 
-                        <!-- Itemized Billing Area -->
-                        <h4 class="form-section-title">Itemized Charges</h4>
-                        <table class="invoice-items-table full-width">
-                            <thead>
-                                <tr>
-                                    <th style="width: 50%;">Description / Service</th>
-                                    <th style="width: 15%;">Qty</th>
-                                    <th style="width: 20%;">Rate (₹)</th>
-                                    <th style="width: 15%;">Total (₹)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="invoiceItemsBody">
-                                <!-- Row 1 -->
-                                <tr>
-                                    <td>
-                                        <input type="text" class="item-desc" value="Lovato OBD-II Sequential Kit" required>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="item-qty" value="1" min="1" onchange="calculateTotals()">
-                                    </td>
-                                    <td>
-                                        <input type="number" class="item-rate" value="40000" min="0" onchange="calculateTotals()">
-                                    </td>
-                                    <td class="item-row-total">40000</td>
-                                </tr>
-                                <!-- Row 2 -->
-                                <tr>
-                                    <td>
-                                        <input type="text" class="item-desc" value="Installation Labour & Tuning" required>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="item-qty" value="1" min="1" onchange="calculateTotals()">
-                                    </td>
-                                    <td>
-                                        <input type="number" class="item-rate" value="3500" min="0" onchange="calculateTotals()">
-                                    </td>
-                                    <td class="item-row-total">3500</td>
-                                </tr>
-                                <!-- Row 3 -->
-                                <tr>
-                                    <td>
-                                        <input type="text" class="item-desc" value="RTO Endorsement Fees" required>
-                                    </td>
-                                    <td>
-                                        <input type="number" class="item-qty" value="1" min="1" onchange="calculateTotals()">
-                                    </td>
-                                    <td>
-                                        <input type="number" class="item-rate" value="2000" min="0" onchange="calculateTotals()">
-                                    </td>
-                                    <td class="item-row-total">2000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <div style="margin-top: 10px;">
-                            <button type="button" class="btn btn-secondary btn-small" onclick="addRow()">+ Add Another Item</button>
-                        </div>
-
-                        <!-- Totals Calculation -->
-                        <div class="invoice-totals-box">
-                            <div class="flex-between">
-                                <span>Subtotal:</span>
-                                <span id="subtotalAmount">₹ 45,500</span>
-                            </div>
-                            <div class="flex-between">
-                                <span>GST (Optional / Inclusive):</span>
-                                <span>--</span>
-                            </div>
-                            <div class="flex-between grand-total">
-                                <strong>Grand Total:</strong>
-                                <strong id="grandTotalAmount">₹ 45,500</strong>
-                            </div>
-                        </div>
-
-                        <!-- Submission Actions -->
-                        <div class="form-actions flex-between" style="margin-top: 20px;">
-                            <button type="button" class="btn btn-outline" onclick="closeInvoiceModal()">Cancel</button>
-                            
-                            <div>
-                                <button type="button" class="btn btn-secondary" onclick="generatePDF()">Save as Draft PDF</button>
-                                <button type="button" class="btn btn-primary" style="background: #25D366; border-color: #25D366;" onclick="generateAndSend()">
-                                    📱 Generate & Send via WhatsApp
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    <!-- Create New Bill Modal -->
+    <div id="modalOverlay" class="overlay hidden" onclick="closeBillModal()"></div>
+    
+    <div id="billModal" class="modal hidden">
+        <h2 style="color: var(--primary-blue); margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px;">Create Tax Invoice</h2>
+        
+        <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+            <div style="flex: 2;">
+                <label style="font-weight: bold; font-size: 0.85rem; color: var(--text-muted);">Select Customer</label>
+                <select id="customerSelect" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px;">
+                    <option value="">-- Choose Existing Customer --</option>
+                    <option value="rahul">Rahul Sharma (GJ-02-AB-1234)</option>
+                    <option value="sanjay">Sanjay Desai (GJ-01-XX-9876)</option>
+                    <option value="vikram">Vikram Patel (GJ-02-YY-5555)</option>
+                    <option value="nasir">Nasir Mansuri (GJ-02-ZZ-1122)</option>
+                </select>
+            </div>
+            <div style="flex: 1;">
+                <label style="font-weight: bold; font-size: 0.85rem; color: var(--text-muted);">Invoice Date</label>
+                <input type="date" id="invoiceDate" value="2026-08-16" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-top: 5px;">
             </div>
         </div>
-        <!-- Overlay for Modal -->
-        <div id="modalOverlay" class="overlay hidden"></div>
 
-    </main>
+        <table class="invoice-table">
+            <thead>
+                <tr style="background: #f8f9fa;">
+                    <th style="width: 50%;">Item / Service Description</th>
+                    <th style="width: 15%;">Qty</th>
+                    <th style="width: 20%;">Rate (₹)</th>
+                    <th style="width: 15%;">Total (₹)</th>
+                </tr>
+            </thead>
+            <tbody id="invoiceItemsBody">
+                <!-- First Default Row -->
+                <tr>
+                    <td><input type="text" class="item-desc" placeholder="e.g. Lovato Sequential Kit" oninput="calculateTotals()"></td>
+                    <td><input type="number" class="item-qty" value="1" min="1" oninput="calculateTotals()"></td>
+                    <td><input type="number" class="item-rate" value="0" min="0" oninput="calculateTotals()"></td>
+                    <td class="item-row-total" style="font-weight: bold; text-align: right;">0</td>
+                </tr>
+            </tbody>
+        </table>
 
+        <button onclick="addItemRow()" style="background: transparent; color: var(--primary-blue); border: 1px solid var(--primary-blue); padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-bottom: 20px;">+ Add Another Item</button>
+
+        <div class="grand-total">
+            Grand Total: ₹<span id="grandTotalAmount">0</span>
+        </div>
+
+        <div style="display: flex; gap: 15px;">
+            <button onclick="closeBillModal()" style="flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; background: #eee; font-weight: bold;">Cancel</button>
+            <button onclick="generatePDF()" style="flex: 2; padding: 12px; border: none; border-radius: 6px; cursor: pointer; background: var(--eco-green); color: white; font-weight: bold; font-size: 1.1rem;">Generate PDF & Save</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic for Bill Generator and PDF Creation -->
     <script>
-        // Modal Control Functions
-        function openInvoiceModal() {
-            document.getElementById('invoiceModal').classList.remove('hidden');
+        // Modal Controls
+        function openBillModal() {
+            document.getElementById('billModal').classList.remove('hidden');
             document.getElementById('modalOverlay').classList.remove('hidden');
         }
 
-        function closeInvoiceModal() {
-            document.getElementById('invoiceModal').classList.add('hidden');
+        function closeBillModal() {
+            document.getElementById('billModal').classList.add('hidden');
             document.getElementById('modalOverlay').classList.add('hidden');
         }
 
-        // Add empty row to itemized bill
-        function addRow() {
+        // Add a new row to the invoice table
+        function addItemRow() {
             const tbody = document.getElementById('invoiceItemsBody');
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><input type="text" class="item-desc" placeholder="Item description" required></td>
-                <td><input type="number" class="item-qty" value="1" min="1" onchange="calculateTotals()"></td>
-                <td><input type="number" class="item-rate" value="0" min="0" onchange="calculateTotals()"></td>
-                <td class="item-row-total">0</td>
+                <td><input type="text" class="item-desc" placeholder="Item description" oninput="calculateTotals()"></td>
+                <td><input type="number" class="item-qty" value="1" min="1" oninput="calculateTotals()"></td>
+                <td><input type="number" class="item-rate" value="0" min="0" oninput="calculateTotals()"></td>
+                <td class="item-row-total" style="font-weight: bold; text-align: right;">0</td>
             `;
             tbody.appendChild(tr);
         }
 
-        // Dynamically calculate the totals as the admin types
+        // Calculate totals dynamically as the user types
         function calculateTotals() {
-            let subtotal = 0;
             const rows = document.querySelectorAll('#invoiceItemsBody tr');
-            
+            let grandTotal = 0;
+
             rows.forEach(row => {
-                const qty = row.querySelector('.item-qty').value;
-                const rate = row.querySelector('.item-rate').value;
+                const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+                const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
                 const rowTotal = qty * rate;
                 
-                row.querySelector('.item-row-total').innerText = rowTotal;
-                subtotal += rowTotal;
+                row.querySelector('.item-row-total').innerText = rowTotal.toLocaleString('en-IN');
+                grandTotal += rowTotal;
             });
 
-            document.getElementById('subtotalAmount').innerText = "₹ " + subtotal;
-            document.getElementById('grandTotalAmount').innerText = "₹ " + subtotal;
+            document.getElementById('grandTotalAmount').innerText = grandTotal.toLocaleString('en-IN');
         }
 
-        // Mock WhatsApp integration
-        function generateAndSend() {
-            // In Node.js, this will:
-            // 1. Save data to MySQL.
-            // 2. Generate PDF via a library like Puppeteer.
-            // 3. Trigger WhatsApp API to send the PDF link.
-            alert("Success! Invoice PDF generated and sent to the customer's WhatsApp with a payment link.");
-            closeInvoiceModal();
-        }
+        // Generate and Print the PDF in the Browser
+        function generatePDF() {
+            const customerSelect = document.getElementById('customerSelect');
+            if (!customerSelect || customerSelect.value === "") {
+                alert("Please select a customer first.");
+                return;
+            }
+            const customerName = customerSelect.options[customerSelect.selectedIndex].text;
+            const invoiceDate = document.getElementById('invoiceDate').value;
+            const totalAmount = document.getElementById('grandTotalAmount').innerText;
 
-        function sendWhatsAppBill(name, invNumber) {
-            alert(`Sending invoice ${invNumber} to ${name} via WhatsApp API...`);
+            const rows = document.querySelectorAll('#invoiceItemsBody tr');
+            let itemsHTML = '';
+            
+            rows.forEach(row => {
+                const desc = row.querySelector('.item-desc').value;
+                const qty = row.querySelector('.item-qty').value;
+                const rate = row.querySelector('.item-rate').value;
+                const rowTotal = row.querySelector('.item-row-total').innerText;
+                
+                if (desc) { 
+                    itemsHTML += `
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd;">${desc}</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: center;">${qty}</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: right;">₹${parseFloat(rate).toLocaleString('en-IN')}</td>
+                            <td style="padding: 10px; border-bottom: 1px solid #ddd; text-align: right;">₹${rowTotal}</td>
+                        </tr>
+                    `;
+                }
+            });
+
+            // Create a clean HTML layout for the PDF Print Window
+            const printWindow = window.open('', '', 'height=800,width=800');
+            
+            const invoiceHTML = `
+            <html>
+            <head>
+                <title>Invoice - ${customerName}</title>
+                <style>
+                    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; color: #333; }
+                    .header { display: flex; justify-content: space-between; border-bottom: 2px solid #2980b9; padding-bottom: 20px; margin-bottom: 30px; }
+                    .company-details h1 { color: #2980b9; margin: 0 0 5px 0; font-size: 24px; }
+                    .company-details p { margin: 2px 0; font-size: 14px; color: #7f8c8d; }
+                    .invoice-details { text-align: right; }
+                    .invoice-details h2 { margin: 0 0 10px 0; color: #333; }
+                    .bill-to { margin-bottom: 30px; background: #f8f9fa; padding: 15px; border-radius: 5px; }
+                    table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+                    th { background: #2980b9; color: white; padding: 12px 10px; text-align: left; }
+                    th.right { text-align: right; }
+                    th.center { text-align: center; }
+                    .totals { width: 300px; float: right; margin-top: 20px; }
+                    .totals-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 18px; font-weight: bold; border-top: 2px solid #333; }
+                    .footer { margin-top: 100px; text-align: center; font-size: 12px; color: #95a5a6; border-top: 1px solid #eee; padding-top: 20px; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <div class="company-details">
+                        <h1>AutoGas Solutions</h1>
+                        <p>Premium RTO-Approved CNG Installations</p>
+                        <p>Visnagar Branch, Gujarat</p>
+                        <p>Contact: +91 98765 43210</p>
+                    </div>
+                    <div class="invoice-details">
+                        <h2>TAX INVOICE</h2>
+                        <p><strong>Date:</strong> ${invoiceDate}</p>
+                        <p><strong>Invoice #:</strong> INV-${Math.floor(Math.random() * 10000)}</p>
+                    </div>
+                </div>
+
+                <div class="bill-to">
+                    <h3 style="margin-top: 0; color: #2c3e50;">Billed To:</h3>
+                    <p style="margin: 0; font-size: 18px; font-weight: bold;">${customerName.split(' (')[0]}</p>
+                    <p style="margin: 5px 0 0 0; color: #7f8c8d;">Vehicle: ${customerName.split('(')[1].replace(')', '')}</p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description of Service / Item</th>
+                            <th class="center">Qty</th>
+                            <th class="right">Rate</th>
+                            <th class="right">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itemsHTML}
+                    </tbody>
+                </table>
+
+                <div class="totals">
+                    <div class="totals-row">
+                        <span>Grand Total:</span>
+                        <span style="color: #27ae60;">₹${totalAmount}</span>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+
+                <div class="footer">
+                    <p>Thank you for your business!</p>
+                    <p>This is a computer-generated document and does not require a physical signature.</p>
+                </div>
+            </body>
+            </html>
+            `;
+
+            printWindow.document.write(invoiceHTML);
+            printWindow.document.close();
+            
+            // Give the browser a moment to render before printing
+            setTimeout(() => {
+                printWindow.print();
+                closeBillModal(); // Close the modal in the main window
+            }, 250);
         }
     </script>
-
 </body>
 </html>

@@ -5,171 +5,272 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | AutoGas Solutions</title>
     
-    <!-- Link to global styles and specific admin dashboard stylesheet -->
+    <!-- Link to your CSS files -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/admin-dashboard.css">
-</head>
-<body class="admin-layout">
-
-    <!-- Sidebar Navigation -->
-    <aside class="admin-sidebar">
-        <div class="sidebar-header">
-            <h2>AutoGas Admin</h2>
-            <p>Visnagar Branch</p>
-        </div>
+    
+    <style>
+        /* Financial Summary Cards */
+        .dashboard-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
         
-        <nav class="sidebar-nav">
-            <a href="dashboard.html" class="active">📊 Dashboard</a>
-            <a href="customers.html">👥 Customers & Vehicles</a>
-            <a href="billing.html">📄 Invoicing & Billing</a>
-            <a href="inventory.html">📦 Kit Inventory</a>
-            <a href="settings.html">⚙️ Automation Settings</a>
-        </nav>
+        .metric-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary-blue);
+        }
         
-        <div class="sidebar-footer">
-            <a href="login.html" class="logout-btn">🚪 Logout</a>
-        </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="admin-main">
+        .metric-card h4 {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
         
-        <!-- Top Header -->
-        <header class="admin-topbar">
-            <div class="topbar-left">
-                <h1 id="page-title">Dashboard Overview</h1>
-            </div>
-            <div class="topbar-right">
-                <span class="current-date" id="currentDate">August 14, 2026</span>
-                <button class="btn btn-primary btn-small" onclick="createNewBill()">+ New Bill</button>
-            </div>
-        </header>
-
-        <!-- Dashboard Content -->
-        <div class="dashboard-content">
-            
-            <!-- KPI Statistics Cards -->
-            <section class="kpi-grid">
-                <div class="kpi-card">
-                    <h3>Active Installations</h3>
-                    <div class="kpi-value">342</div>
-                    <p class="kpi-trend positive">↑ 12 this month</p>
-                </div>
-                <div class="kpi-card">
-                    <h3>Pending Renewals (30 Days)</h3>
-                    <div class="kpi-value warning-text">14</div>
-                    <p class="kpi-trend">Requires Hydro-Testing</p>
-                </div>
-                <div class="kpi-card">
-                    <h3>Automated Alerts Sent</h3>
-                    <div class="kpi-value">8</div>
-                    <p class="kpi-trend">WhatsApp & SMS today</p>
-                </div>
-                <div class="kpi-card">
-                    <h3>Monthly Revenue</h3>
-                    <div class="kpi-value">₹ 1,45,000</div>
-                    <p class="kpi-trend positive">↑ 5% from last month</p>
-                </div>
-            </section>
-
-            <div class="dashboard-split">
-                
-                <!-- Critical Alerts Section (The 3-Year Expiry Tracker) -->
-                <section class="alerts-section">
-                    <div class="section-header">
-                        <h2>⚠️ Urgent Hydro-Test Renewals (Next 7 Days)</h2>
-                    </div>
-                    <div class="alert-list">
-                        
-                        <!-- Alert Item 1 -->
-                        <div class="alert-item critical">
-                            <div class="alert-info">
-                                <strong>Rahul Sharma</strong> | GJ-02-AB-1234
-                                <span>Installed: 17 Aug 2023 | <strong>Expires: 17 Aug 2026 (3 Days)</strong></span>
-                            </div>
-                            <div class="alert-actions">
-                                <span class="status-badge pending">Alert Pending</span>
-                                <button class="btn btn-secondary btn-small" onclick="triggerWhatsApp('9876543210', 'Rahul')">
-                                    Send WhatsApp Alert
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Alert Item 2 -->
-                        <div class="alert-item warning">
-                            <div class="alert-info">
-                                <strong>Vikram Patel</strong> | GJ-02-CD-5678
-                                <span>Installed: 20 Aug 2023 | <strong>Expires: 20 Aug 2026 (6 Days)</strong></span>
-                            </div>
-                            <div class="alert-actions">
-                                <span class="status-badge success">Alert Sent Today</span>
-                                <button class="btn btn-outline btn-small">View Profile</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- Recent Activity / Billing Section -->
-                <section class="recent-activity-section">
-                    <div class="section-header">
-                        <h2>Recent Invoices</h2>
-                        <a href="billing.html" class="view-all">View All</a>
-                    </div>
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Inv #</th>
-                                <th>Customer</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>INV-1042</td>
-                                <td>Sanjay Desai</td>
-                                <td>₹ 42,500</td>
-                                <td><span class="status-badge paid">Paid</span></td>
-                            </tr>
-                            <tr>
-                                <td>INV-1041</td>
-                                <td>Amit Chavda</td>
-                                <td>₹ 850</td>
-                                <td><span class="status-badge paid">Paid</span></td>
-                            </tr>
-                            <tr>
-                                <td>INV-1040</td>
-                                <td>Neha Gupta</td>
-                                <td>₹ 38,000</td>
-                                <td><span class="status-badge pending">Pending</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </section>
-
-            </div> <!-- End Split -->
-        </div> <!-- End Content -->
-    </main>
-
-    <!-- JavaScript for interactivity -->
-    <script>
-        // Display current date dynamically
-        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('en-IN', dateOptions);
-
-        // Mock function to simulate sending a WhatsApp message via API
-        function triggerWhatsApp(phone, name) {
-            // In Node.js, this will make a fetch() call to your backend, which calls the WhatsApp API
-            alert(`Sending automated expiry warning to ${name} via WhatsApp API...`);
-            
-            // Note: Once the API responds successfully, you would update the UI status badge to "Alert Sent"
+        .metric-card .amount {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 5px;
         }
 
-        function createNewBill() {
-            window.location.href = "billing.html";
+        .metric-card .trend {
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .trend.up { color: var(--eco-green); }
+        .trend.down { color: var(--danger-red); }
+
+        /* Website Control & Catalogue Section */
+        .controls-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .control-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .control-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .action-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .action-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .action-list li:last-child {
+            border-bottom: none;
+        }
+
+        .btn-small-action {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: var(--text-dark);
+            transition: all 0.2s;
+        }
+
+        .btn-small-action.add { color: white; background: var(--eco-green); border-color: var(--eco-green); }
+        .btn-small-action.remove { color: white; background: var(--danger-red); border-color: var(--danger-red); }
+        .btn-small-action:hover { opacity: 0.8; }
+
+        /* Enforce header layout */
+        .admin-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-header-flex h1 {
+            color: var(--primary-blue);
+            font-size: 1.6rem;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .controls-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="admin-body">
+
+    <div class="admin-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h2>AutoGas Admin</h2>
+                <p style="color: var(--eco-green); font-size: 0.85rem; margin-top: 5px;">Visnagar Branch</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="active">📊 Dashboard</a>
+                <a href="customers.html">👥 Customers & Vehicles</a>
+                <a href="billing.html">📄 Invoicing & Billing</a>
+                <a href="inventory.html">📦 Kit Inventory</a>
+                <a href="automation.html">⚙️ Automation Settings</a>
+                <a href="../customer-portal/login.html" class="logout-link" style="margin-top: auto; color: var(--danger-red);">🚪 Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-main">
+            
+            <!-- Top Header -->
+            <header class="admin-header-flex">
+                <div class="header-title">
+                    <h1>Master Control Dashboard</h1>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Financial overview and website catalogue management.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="alert('Generating Full Financial Report PDF...')" style="background-color: var(--primary-blue); border: none;">Download Report</button>
+                </div>
+            </header>
+
+            <!-- Financial Metrics -->
+            <div class="dashboard-metrics">
+                <div class="metric-card" style="border-left-color: var(--primary-blue);">
+                    <h4>Total Revenue (This Month)</h4>
+                    <div class="amount">₹ 3,45,000</div>
+                    <div class="trend up">▲ 12% vs last month</div>
+                </div>
+                
+                <div class="metric-card" style="border-left-color: var(--eco-green);">
+                    <h4>Net Earnings / Profit</h4>
+                    <div class="amount" style="color: var(--eco-green);">₹ 1,20,500</div>
+                    <div class="trend up">▲ 5% vs last month</div>
+                </div>
+                
+                <div class="metric-card" style="border-left-color: #f39c12;">
+                    <h4>Yearly Revenue (2026)</h4>
+                    <div class="amount">₹ 42,50,000</div>
+                    <div class="trend up">▲ On track for targets</div>
+                </div>
+
+                <div class="metric-card" style="border-left-color: var(--danger-red);">
+                    <h4>Expenses & Lost Margins</h4>
+                    <div class="amount" style="color: var(--danger-red);">₹ 45,200</div>
+                    <div class="trend down">▼ Includes damaged parts</div>
+                </div>
+            </div>
+
+            <!-- Website & System Controls -->
+            <div class="controls-section">
+                
+                <!-- Kit Catalogue Manager -->
+                <div class="control-card">
+                    <h3>🛒 Website Kit Catalogue Control</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">Add or remove CNG kits directly from the public <b>kits.html</b> page.</p>
+                    
+                    <ul class="action-list">
+                        <li>
+                            <span><b>Lovato OBD-II Sequential</b><br><small style="color: var(--text-muted);">Status: Live on Website</small></span>
+                            <button class="btn-small-action remove" onclick="toggleKitStatus(this)">Remove</button>
+                        </li>
+                        <li>
+                            <span><b>Motozen Sequential Kit</b><br><small style="color: var(--text-muted);">Status: Live on Website</small></span>
+                            <button class="btn-small-action remove" onclick="toggleKitStatus(this)">Remove</button>
+                        </li>
+                        <li>
+                            <span><b>BRC Conventional Kit</b><br><small style="color: var(--text-muted);">Status: Hidden</small></span>
+                            <button class="btn-small-action add" onclick="toggleKitStatus(this)">Add to Web</button>
+                        </li>
+                        <li style="margin-top: 15px;">
+                            <button class="btn-small-action add" style="width: 100%; padding: 10px;" onclick="openAddKitModal()">+ Create New Kit for Website</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Navigation & Admin Controls -->
+                <div class="control-card">
+                    <h3>⚙️ System Quick Controls</h3>
+                    <ul class="action-list">
+                        <li>
+                            <span><b>New Customer Registration</b><br><small style="color: var(--text-muted);">Add walk-in customer profile</small></span>
+                            <a href="customers.html" class="btn-small-action" style="text-decoration: none;">Go to CRM</a>
+                        </li>
+                        <li>
+                            <span><b>Generate Instant Bill</b><br><small style="color: var(--text-muted);">Create a new tax invoice</small></span>
+                            <a href="billing.html" class="btn-small-action" style="text-decoration: none;">Go to Billing</a>
+                        </li>
+                        <li>
+                            <span><b>WhatsApp Automations</b><br><small style="color: var(--text-muted);">Hydro-test alerts active</small></span>
+                            <a href="automation.html" class="btn-small-action" style="text-decoration: none;">Configure</a>
+                        </li>
+                        <li>
+                            <span><b>Staff Passwords & Access</b><br><small style="color: var(--text-muted);">Change admin login details</small></span>
+                            <button class="btn-small-action" onclick="alert('Password reset link sent to admin@autogas.com')">Reset Password</button>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript for Dashboard Actions -->
+    <script>
+        // Simulate Adding/Removing Kits from the front-end catalog
+        function toggleKitStatus(btn) {
+            if (btn.classList.contains('remove')) {
+                const confirmRemove = confirm("Are you sure you want to remove this kit from the public website?");
+                if (confirmRemove) {
+                    btn.classList.remove('remove');
+                    btn.classList.add('add');
+                    btn.innerText = "Add to Web";
+                    btn.previousElementSibling.querySelector('small').innerText = "Status: Hidden";
+                }
+            } else {
+                btn.classList.remove('add');
+                btn.classList.add('remove');
+                btn.innerText = "Remove";
+                btn.previousElementSibling.querySelector('small').innerText = "Status: Live on Website";
+            }
+        }
+
+        // Placeholder for adding a brand new kit
+        function openAddKitModal() {
+            const kitName = prompt("Enter the Name of the New CNG Kit (e.g., Tomasetto Pro):");
+            if (kitName) {
+                alert(`"${kitName}" has been successfully added to your website catalog!`);
+                // In Phase 2, this will save to the database and instantly update kits.html
+            }
         }
     </script>
-
 </body>
 </html>
